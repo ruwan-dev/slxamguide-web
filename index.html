@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SL Exam Guide - The Best GK & IQ App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Noto+Sans+Sinhala:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #ff4757;
+            --text-light: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+        
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Poppins', 'Noto Sans Sinhala', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* පසුබිමේ බබල්ස් ස්ක්‍රෝල් කරද්දී එකම තැන තියෙන්න */
+        #bubble-background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none; 
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* අලුත් Dashboard Layout එක (First View) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .hero-layout {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        /* මැද තියෙන ප්‍රධාන පැනල් එක */
+        .main-panel {
+            flex: 2;
+            max-width: 750px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+            z-index: 5; /* බබල්ස් වලට උඩින් තියෙන්න */
+        }
+
+        /* පැති වල තියෙන Tiles දෙක */
+        .side-tile {
+            flex: 1;
+            height: 250px; /* උස Fixed කර ඇත */
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden; /* එළියට යන Content හැංගීමට */
+            transition: transform 0.3s ease;
+        }
+        .side-tile:hover { transform: scale(1.02); background: rgba(255,255,255,0.08); }
+
+        /* Smooth Animation සඳහා Content Wrapper */
+        .tile-content {
+            position: absolute;
+            width: 80%;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* බෙහෙවින් සුමට cubic-bezier easing */
+            opacity: 0;
+            transform: translateY(-20px); /* උඩ ඉඳන් එනවා */
+        }
+
+        .tile-content.active {
+            opacity: 1;
+            transform: translateY(0); /* තැනට එනවා */
+        }
+
+        .tile-content.exit {
+            opacity: 0;
+            transform: translateY(20px); /* පල්ලෙහාට යනවා */
+        }
+
+        .icon { font-size: 3rem; margin-bottom: 15px; display: block; }
+        .title { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: #fff; }
+        .desc { font-size: 0.95rem; color: #dcdde1; line-height: 1.6; }
+
+        .hero h1 { font-size: 3.5rem; margin: 0 0 15px 0; font-weight: 600; text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .hero p.subtitle { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; line-height: 1.6; }
+
+        .button-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+        .btn-start {
+            background: var(--primary); color: white; padding: 14px 28px; font-size: 1.05rem;
+            font-weight: 600; border: none; border-radius: 50px; text-decoration: none;
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4); transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+        .btn-start:hover:not(.disabled) { transform: translateY(-5px) scale(1.05); background: #ff6b81; box-shadow: 0 15px 25px rgba(255, 71, 87, 0.6); }
+        .btn-start.disabled { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); box-shadow: none; cursor: not-allowed; backdrop-filter: blur(5px); }
+        .btn-icon { font-size: 1.3rem; }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute; text-align: center; padding: 12px 18px; font-size: 14px;
+            background: rgba(15, 32, 39, 0.95); color: #fff; border-radius: 12px;
+            pointer-events: none; opacity: 0; transition: opacity 0.2s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 100;
+            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+        }
+
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--glass-border); backdrop-filter: blur(5px); background: rgba(0,0,0,0.2); }
+        footer a { color: #a4b0be; text-decoration: none; margin: 0 15px; font-size: 0.9rem; transition: color 0.3s; }
+        footer a:hover { color: #fff; text-decoration: underline; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .hero-layout { flex-direction: column; gap: 30px; }
+            .side-tile { width: 100%; height: 200px; max-width: 500px; }
+            .main-panel { order: -1; width: 100%; padding: 40px; box-sizing: border-box; }
+            .hero h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bubble-background"></div>
+    <div class="tooltip" id="tooltip"></div>
+
+    <div class="content-wrapper">
+        <section class="hero">
+            <div class="hero-layout">
+                
+                <div class="side-tile" id="left-tile">
+                    <div class="tile-content active" id="content-1">
+                        <span class="icon">💡</span>
+                        <div class="title">General Knowledge</div>
+                        <div class="desc">සියලුම ක්ෂේත්‍ර ආවරණය වන පරිදි යාවත්කාලීන වූ නවතම සාමාන්‍ය දැනීම ප්‍රශ්න.</div>
+                    </div>
+                    <div class="tile-content" id="content-2">
+                        <span class="icon">⏱️</span>
+                        <div class="title">Time Management</div>
+                        <div class="desc">තරඟ විභාග වලට ගැලපෙන පරිදි නියමිත කාලය තුළ පිළිතුරු දීමේ පෙරහුරුව.</div>
+                    </div>
+                </div>
+
+                <div class="main-panel">
+                    <h1>SL Exam Guide</h1>
+                    <p class="subtitle">ලංකාවේ රජයේ විභාග සහ තරඟ විභාග සඳහා සාර්ථකව මුහුණ දීමට අවශ්‍ය හොඳම General Knowledge (GK) සහ IQ පෙරහුරු යෙදුම.</p>
+                    
+                    <div class="button-group">
+                        <a href="https://ruwan-dev.github.io/gk_quiz_app/" class="btn-start">
+                            <span class="btn-icon">🌐</span> Play Quiz on Web
+                        </a>
+                        <button class="btn-start disabled" disabled>
+                            <span class="btn-icon">🤖</span> Install Android
+                        </button>
+                        <button class="btn-start disabled" disabled>
+                            <span class="btn-icon">🍏</span> Install iOS
+                        </button>
+                    </div>
+                </div>
+
+                <div class="side-tile" id="right-tile">
+                    <div class="tile-content active" id="content-3">
+                        <span class="icon">🧠</span>
+                        <div class="title">IQ Questions</div>
+                        <div class="desc">ඔබේ බුද්ධිමය හැකියාව හා තර්කන ශක්තිය මැන බැලීම සඳහා විශේෂයෙන් සැකසූ ගැටළු.</div>
+                    </div>
+                    <div class="tile-content" id="content-4">
+                        <span class="icon">🏆</span>
+                        <div class="title" style="color: #f1c40f;">Island Ranking</div>
+                        <div class="desc">ලංකාව පුරා සිටින තරඟකරුවන් සමඟ ඔබේ ලකුණු සසඳා බලා Leaderboard එකේ පළමු තැනට එන්න.</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <p style="color: #a4b0be; font-size: 0.9rem; margin: 0 0 10px 0;">&copy; 2026 SL Exam Guide. All rights reserved.</p>
+            <div>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Smooth Tile Switching Logic (මාරුවෙන් මාරුවට විස්තර පෙන්වීම)
+        function rotateContent() {
+            const leftGroup = ['content-1', 'content-2'];
+            const rightGroup = ['content-3', 'content-4'];
+
+            const leftActiveIdx = leftGroup.findIndex(id => document.getElementById(id).classList.contains('active'));
+            const rightActiveIdx = rightGroup.findIndex(id => document.getElementById(id).classList.contains('active'));
+
+            const leftNextIdx = (leftActiveIdx + 1) % leftGroup.length;
+            const rightNextIdx = (rightActiveIdx + 1) % rightGroup.length;
+
+            const updateGroup = (group, activeIdx, nextIdx) => {
+                const currentEl = document.getElementById(group[activeIdx]);
+                const nextEl = document.getElementById(group[nextIdx]);
+
+                // පරණ Content එක Slide-out / Fade-out කිරීම
+                currentEl.classList.add('exit');
+                currentEl.classList.remove('active');
+
+                // තත්පර 0.8කින් පසු (Animation එක ඉවර වූ විට) පරණ Content එක සැඟවීම
+                setTimeout(() => {
+                    currentEl.classList.remove('exit');
+                }, 800);
+
+                // අලුත් Content එක Fade-in / Slide-in කිරීම
+                nextEl.classList.add('active');
+            };
+
+            updateGroup(leftGroup, leftActiveIdx, leftNextIdx);
+            updateGroup(rightGroup, rightActiveIdx, rightNextIdx);
+        }
+        setInterval(rotateContent, 4000); // තත්පර 4කට වරක් මාරු වේ
+
+        // 2. Bubble Animation (පැරණි Bubble Up code එක මෙතනට)
+        const data = [
+            { id: "SLAS", value: 95, color: "255, 71, 87", full: "Sri Lanka Administrative Service" },
+            { id: "Teaching", value: 90, color: "10, 189, 227", full: "Sri Lanka Teaching Service" },
+            { id: "Registrar", value: 85, color: "254, 202, 87", full: "Registrar Service Exam" },
+            { id: "SLAcS", value: 80, color: "29, 209, 161", full: "Sri Lanka Accountants' Service" },
+            { id: "Parliament", value: 75, color: "162, 155, 254", full: "Parliament Officer Exam" },
+            { id: "Banking", value: 55, color: "253, 203, 110", full: "BOC / Peoples Bank Exams" },
+            { id: "Grama\nNiladhari", value: 40, color: "200, 214, 229", full: "Grama Niladhari Exam" },
+            { id: "Dev.\nOfficer", value: 35, color: "10, 189, 227", full: "Development Officer Exam" }
+        ];
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        const tooltip = d3.select("#tooltip");
+
+        const svg = d3.select("#bubble-background").append("svg")
+            .attr("width", width).attr("height", height)
+            .style("pointer-events", "all"); 
+
+        const defs = svg.append("defs");
+        data.forEach((d, i) => {
+            const gradId = `glass-grad-${i}`;
+            d.gradId = gradId;
+            const grad = defs.append("radialGradient").attr("id", gradId).attr("cx", "30%").attr("cy", "30%").attr("r", "70%");
+            grad.append("stop").attr("offset", "0%").style("stop-color", `rgba(255, 255, 255, 0.9)`);
+            grad.append("stop").attr("offset", "100%").style("stop-color", `rgba(${d.color}, 0.6)`);
+        });
+
+        const sizeScale = d3.scaleLinear().domain([30, 100]).range([55, 95]); 
+
+        data.forEach(d => {
+            d.baseX = Math.random() * width; 
+            d.y = height + Math.random() * height; 
+            d.speedY = 0.5 + Math.random() * 1.5; 
+            d.sway = Math.random() * Math.PI * 2; 
+        });
+
+        const node = svg.append("g").selectAll("g").data(data).enter().append("g");
+
+        const circles = node.append("circle")
+            .attr("r", d => sizeScale(d.value))
+            .style("fill", d => `url(#${d.gradId})`)
+            .style("stroke", "rgba(255,255,255,0.2)");
+
+        node.append("text").attr("text-anchor", "middle").style("fill", "#fff").style("font-weight", "600").style("font-size", d => sizeScale(d.value)/4.5 + "px").style("pointer-events", "none").attr("dy", ".3em")
+            .each(function(d) {
+                const lines = d.id.split("\n");
+                lines.forEach((l, i) => d3.select(this).append("tspan").text(l).attr("x", 0).attr("y", lines.length === 1 ? "0.3em" : (i === 0 ? "-0.2em" : "1em")));
+            });
+
+        d3.timer((elapsed) => {
+            node.attr("transform", d => {
+                d.y -= d.speedY;
+                d.x = d.baseX + Math.sin(elapsed / 1000 + d.sway) * 20;
+                if (d.y < -100) { d.y = height + 100; d.baseX = Math.random() * width; }
+                return `translate(${d.x},${d.y})`;
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            width = window.innerWidth; height = window.innerHeight; svg.attr("width", width).attr("height", height);
+        });
+    </script>
+</body>
+</html>
