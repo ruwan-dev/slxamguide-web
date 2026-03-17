@@ -29,9 +29,12 @@
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.7) 100%); z-index: -1; }
 
         nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 8%; box-sizing: border-box; background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--glass-border); }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; color: #fff; }
-        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+        
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; color: #fff; display: flex; flex-direction: row; align-items: baseline; }
+        .logo-row { display: flex; align-items: baseline; }
+        .logo .logo-blue { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
         .logo .sl-flag { background: url('https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg') center/cover no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; display: inline-block; }
+        
         .glitch-x { position: relative; display: inline-block; color: #fff; animation: glitch-skew 1s infinite linear alternate-reverse; }
         .glitch-x::before, .glitch-x::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .glitch-x::before { left: 2px; text-shadow: -2px 0 var(--secondary); clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
@@ -107,17 +110,20 @@
         .ss-info h4 { margin: 0 0 10px 0; font-size: 1.2rem; color: #fff; font-weight: 700; }
         .ss-info p { margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
 
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; backdrop-filter: blur(10px); transition: 0.3s; }
+        .slider-controls { display: flex; justify-content: center; gap: 30px; margin-top: 40px; position: relative; z-index: 20; }
+        .nav-btn { background: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; backdrop-filter: blur(10px); transition: 0.3s; font-size: 1.2rem; user-select: none; }
         .nav-btn:hover { background: var(--primary); color: #000; }
-        .prev-btn { left: -30px; } .next-btn { right: -30px; }
 
         .button-group { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;}
-        .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; background: #000; border: 1px solid var(--glass-border); color: #fff; }
+        .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; background: #000; border: 1px solid var(--glass-border); color: #fff; position: relative; }
         .btn:hover { transform: translateY(-3px); border-color: #fff; }
         .btn-text-wrap { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
         .btn-small-top { font-size: 0.65rem; opacity: 0.8; }
         .btn-main-bottom { font-size: 1.1rem; }
         .web-btn { background: var(--primary); border: none; }
+
+        .avail-soon { position: absolute; top: -12px; right: -8px; background: linear-gradient(90deg, #ff007f, #7c3aed, #0ea5e9, #ff007f); background-size: 300% 100%; animation: gradientMove 3s linear infinite; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 10; pointer-events: none; white-space: nowrap; }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
         .direct-dl-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .direct-dl-info h3 { margin: 0 0 5px 0; }
@@ -129,36 +135,35 @@
         .call-btn { background: var(--primary); } .whatsapp-btn { background: var(--whatsapp); }
 
         footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--glass-border); background: rgba(2, 6, 23, 0.98); }
+        .footer-link { color: var(--primary); text-decoration: none; font-weight: 700; transition: 0.3s; }
+        .footer-link:hover { text-shadow: 0 0 10px var(--primary); }
 
-        /* --- Fully Responsive Media Queries --- */
         @media (max-width: 1024px) {
             .feature-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 768px) {
             nav { padding: 0 5%; }
-            .logo { font-size: 1.2rem; }
+            .logo { flex-direction: column; align-items: flex-start; line-height: 1.1; gap: 2px; font-size: 1.15rem; }
             .company-link { font-size: 0.65rem; }
             
-            .hero { padding: 100px 15px 40px; }
+            .hero { padding: 120px 15px 40px; }
             .main-panel { padding: 40px 20px; border-radius: 25px; }
             h1 { font-size: 3.5rem; }
             .subtitle { font-size: 1rem; }
             
             .feature-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
-            /* Slider Fixes for Mobile/Tablet */
             .slider-container { height: 600px; }
             .screenshot-card { width: 320px; flex-direction: column; }
             .screenshot-card img { width: 100%; border-right: none; border-bottom: 1px solid var(--glass-border); }
             .screenshot-card.prev { transform: translate3d(-150px, 0, -200px) rotateY(35deg) scale(0.8); }
             .screenshot-card.next { transform: translate3d(150px, 0, -200px) rotateY(-35deg) scale(0.8); }
             
-            .nav-btn { width: 45px; height: 45px; }
-            .prev-btn { left: 5px; } 
-            .next-btn { right: 5px; }
+            .nav-btn { width: 45px; height: 45px; font-size: 1rem; }
+            .slider-controls { margin-top: 20px; gap: 20px; }
 
-            .button-group { flex-direction: column; align-items: stretch; gap: 15px; }
+            .button-group { flex-direction: column; align-items: stretch; gap: 15px; margin-top: 20px; }
             .btn { width: 100%; justify-content: center; box-sizing: border-box; }
 
             .direct-dl-top { flex-direction: column; text-align: center; align-items: stretch; }
@@ -168,14 +173,13 @@
         }
 
         @media (max-width: 480px) {
-            .logo { font-size: 1rem; }
+            .logo { font-size: 1rem; gap: 1px; }
             .company-link { font-size: 0.55rem; }
             h1 { font-size: 2.8rem; letter-spacing: -1px; }
             .tagline { font-size: 1rem; margin: 15px 0 25px; }
             
             .feature-grid { grid-template-columns: 1fr; }
             
-            /* Slider Fixes for Small Phones */
             .slider-container { height: 620px; }
             .screenshot-card { width: 270px; }
             .screenshot-card.prev { transform: translate3d(-90px, 0, -200px) rotateY(35deg) scale(0.8); opacity: 0.2; }
@@ -192,7 +196,11 @@
 <body>
 
     <nav>
-        <div class="logo"><span class="sl-flag">SL</span><span class="glitch-x" data-text="X">X</span>AM<span>GUIDE.ONLINE</span></div>
+        <div class="logo">
+            <div class="logo-row"><span class="sl-flag">SL</span></div>
+            <div class="logo-row"><span class="glitch-x" data-text="X">X</span>AM<span class="logo-blue">GUIDE</span></div>
+            <div class="logo-row"><span class="logo-blue">.ONLINE</span></div>
+        </div>
         <a href="company.html" class="company-link">ORBITVIEW INNOVATIONS</a>
     </nav>
 
@@ -242,7 +250,6 @@
                 <div class="screenshots-section">
                     <h2>AstroQuiz අත්දැකීම</h2>
                     <div class="slider-container">
-                        <div class="nav-btn prev-btn" onclick="movePrev()">❮</div>
                         <div class="slider-wrapper" id="sliderWrapper">
                             <div class="screenshot-card">
                                 <img src="screenshots/Screenshot_20260317_094909.jpg" alt="1">
@@ -293,17 +300,27 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="slider-controls">
+                        <div class="nav-btn prev-btn" onclick="movePrev()">❮</div>
                         <div class="nav-btn next-btn" onclick="moveNext()">❯</div>
                     </div>
                 </div>
 
                 <div class="button-group">
                     <a href="https://ruwan-dev.github.io/gk_quiz_app/" class="btn web-btn">🌐 <div class="btn-text-wrap"><span class="btn-small-top">Experience on</span><span class="btn-main-bottom">Web Portal</span></div></a>
+                    
                     <a href="javascript:void(0)" onclick="scrollToDirectDL()" class="btn">
+                        <span class="avail-soon">Available Soon</span>
                         <svg viewBox="0 0 24 24" width="28" height="28"><path fill="#EA4335" d="M3.5 2.1c-.2.2-.3.5-.3.9v18c0 .4.1.7.3.9L12.6 12 3.5 2.1z"/><path fill="#FBBC04" d="M16.8 16.2L12.6 12l4.2-4.2 5 2.8c1.4.8 1.4 2.1 0 2.9l-5 2.7z"/><path fill="#34A853" d="M12.6 12L3.5 21.1c.4.3.9.3 1.4 0l11.9-6.6-4.2-2.5z"/><path fill="#4285F4" d="M12.6 12l4.2-4.2-11.9-6.6c-.5-.3-1-.3-1.4 0L12.6 12z"/></svg>
                         <div class="btn-text-wrap"><span class="btn-small-top">GET IT ON</span><span class="btn-main-bottom">Google Play</span></div>
                     </a>
-                    <a href="javascript:void(0)" class="btn"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 1.77-3.27 1.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.82M13 3.5c.73-.83 1.94-1.46 2.94-1.5 1.3.17 1.1 1.35.4 2.19-.7.85-1.84 1.51-2.96 1.42-.15-1.15.41-2.35 1.02-3.11z"/></svg><div class="btn-text-wrap"><span class="btn-small-top">Download on the</span><span class="btn-main-bottom">App Store</span></div></a>
+                    
+                    <a href="javascript:void(0)" class="btn">
+                        <span class="avail-soon">Available Soon</span>
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 1.77-3.27 1.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.82M13 3.5c.73-.83 1.94-1.46 2.94-1.5 1.3.17 1.1 1.35.4 2.19-.7.85-1.84 1.51-2.96 1.42-.15-1.15.41-2.35 1.02-3.11z"/></svg>
+                        <div class="btn-text-wrap"><span class="btn-small-top">Download on the</span><span class="btn-main-bottom">App Store</span></div>
+                    </a>
                 </div>
 
                 <div class="direct-dl-container" id="direct-dl-section">
@@ -328,7 +345,7 @@
         </div>
     </div>
 
-    <footer><p class="footer-text">&copy; 2026 <strong>slxamguide.online</strong> | Developed by OrbitView Innovations</p></footer>
+    <footer><p class="footer-text">&copy; 2026 <strong>slxamguide.online</strong> | Developed by <a href="company.html" class="footer-link">OrbitView Innovations</a></p></footer>
 
     <script>
         const cards = document.querySelectorAll('.screenshot-card');
