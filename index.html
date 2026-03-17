@@ -154,9 +154,12 @@
             
             .feature-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
-            .slider-container { height: 600px; }
-            .screenshot-card { width: 320px; flex-direction: column; }
-            .screenshot-card img { width: 100%; border-right: none; border-bottom: 1px solid var(--glass-border); }
+            /* Reduced slider height and hid description for mobile */
+            .slider-container { height: 450px; }
+            .screenshot-card { width: 260px; flex-direction: column; }
+            .screenshot-card img { width: 100%; border-right: none; }
+            .ss-info { display: none; }
+            
             .screenshot-card.prev { transform: translate3d(-150px, 0, -200px) rotateY(35deg) scale(0.8); }
             .screenshot-card.next { transform: translate3d(150px, 0, -200px) rotateY(-35deg) scale(0.8); }
             
@@ -180,14 +183,11 @@
             
             .feature-grid { grid-template-columns: 1fr; }
             
-            .slider-container { height: 620px; }
-            .screenshot-card { width: 270px; }
+            /* Further adjusted slider height for very small screens */
+            .slider-container { height: 420px; }
+            .screenshot-card { width: 230px; }
             .screenshot-card.prev { transform: translate3d(-90px, 0, -200px) rotateY(35deg) scale(0.8); opacity: 0.2; }
             .screenshot-card.next { transform: translate3d(90px, 0, -200px) rotateY(-35deg) scale(0.8); opacity: 0.2; }
-            
-            .ss-info { padding: 20px; }
-            .ss-info h4 { font-size: 1.1rem; }
-            .ss-info p { font-size: 0.85rem; }
             
             .direct-dl-container { padding: 25px 15px; }
         }
@@ -286,7 +286,7 @@
                             <div class="screenshot-card">
                                 <img src="screenshots/Screenshot_20260316_004901.jpg" alt="5">
                                 <div class="ss-info">
-                                    <svg class="ss-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                    <svg class="ss-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                                     <h4>Results Analysis</h4>
                                     <p>ඔබේ වැරදි පිළිතුරු නිවැරදි කරගැනීමට අවශ්‍ය විස්තරාත්මක විග්‍රහය.</p>
                                 </div>
