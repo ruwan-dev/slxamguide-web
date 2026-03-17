@@ -23,15 +23,14 @@
         html { scroll-behavior: smooth; }
         body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
-        /* --- Background --- */
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
         .video-container video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.35) contrast(1.1); }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.7) 100%); z-index: -1; }
 
-        /* --- Nav & Glitch Logo --- */
         nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 8%; box-sizing: border-box; background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--glass-border); }
         .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; color: #fff; }
         .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+        .logo .sl-flag { background: url('https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg') center/cover no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; display: inline-block; }
         .glitch-x { position: relative; display: inline-block; color: #fff; animation: glitch-skew 1s infinite linear alternate-reverse; }
         .glitch-x::before, .glitch-x::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .glitch-x::before { left: 2px; text-shadow: -2px 0 var(--secondary); clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
@@ -44,11 +43,9 @@
         .company-link { text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: #475569; transition: 0.3s; }
         .company-link:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-        /* --- Hero --- */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px; box-sizing: border-box; }
         .main-container { max-width: 1200px; width: 100%; animation: fadeIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         
-        /* Floating Animation for Main Panel */
         .main-panel { 
             background: var(--glass-bg); 
             backdrop-filter: blur(40px); 
@@ -74,7 +71,6 @@
         .tagline { font-size: 1.25rem; margin: 20px 0 35px; color: #94a3b8; font-weight: 600; }
         .subtitle { font-size: 1.1rem; color: #64748b; line-height: 1.8; margin-bottom: 50px; max-width: 750px; margin-left: auto; margin-right: auto; }
 
-        /* --- Feature Grid (5 Columns) --- */
         .feature-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 50px; padding-top: 50px; border-top: 1px solid var(--glass-border); }
         .feature-item { position: relative; padding: 25px 15px; text-align: center; border-radius: 25px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.02); transition: 0.3s; z-index: 1; overflow: hidden; }
         .feature-item:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
@@ -89,7 +85,6 @@
         .feature-label-new { background: var(--tile-green); color: #fff; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 50px; display: inline-block; margin-bottom: 10px; }
         .tile-gk { border-color: var(--tile-amber); } .tile-iq { border-color: var(--tile-purple); } .tile-time { border-color: var(--tile-orange); } .tile-leaderboard { border-color: var(--tile-cyan); }
 
-        /* --- AstroQuiz Experience Section --- */
         .screenshots-section { margin: 100px 0; padding: 80px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; perspective: 1800px; }
         .screenshots-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; font-weight: 800; }
         .slider-container { position: relative; height: 550px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
@@ -106,7 +101,6 @@
         .screenshot-card img { width: 240px; height: auto; border-right: 1px solid var(--glass-border); }
         .ss-info { flex: 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center; }
         
-        /* Clean Icon Styling */
         .ss-card-icon { width: 34px; height: 34px; margin-bottom: 20px; stroke: var(--primary); stroke-width: 1.2; opacity: 0.9; }
         
         .ss-info h4 { margin: 0 0 10px 0; font-size: 1.2rem; color: #fff; font-weight: 700; }
@@ -116,7 +110,6 @@
         .nav-btn:hover { background: var(--primary); color: #000; }
         .prev-btn { left: -30px; } .next-btn { right: -30px; }
 
-        /* --- Buttons --- */
         .button-group { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;}
         .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; background: #000; border: 1px solid var(--glass-border); color: #fff; }
         .btn:hover { transform: translateY(-3px); border-color: #fff; }
@@ -139,7 +132,7 @@
 <body>
 
     <nav>
-        <div class="logo">SL<span class="glitch-x" data-text="X">X</span>AM<span>GUIDE.ONLINE</span></div>
+        <div class="logo"><span class="sl-flag">SL</span><span class="glitch-x" data-text="X">X</span>AM<span>GUIDE.ONLINE</span></div>
         <a href="company.html" class="company-link">ORBITVIEW INNOVATIONS</a>
     </nav>
 
@@ -151,7 +144,7 @@
     <div class="hero">
         <div class="main-container">
             <div class="main-panel">
-                <span class="badge">TRENDING: TEACHING EXAM 2026</span>
+                <span class="badge">TRENDING Now TEACHING EXAM 2026</span>
                 <div class="brand-intro">Slxamguide Presents</div>
                 <h1>Astro<span>Quiz</span></h1>
                 <div class="tagline">The Ultimate Exam Intelligence Platform</div>
@@ -207,14 +200,14 @@
                                     <p>ගුරු විභාග, IQ සහ GK ඇතුළු සියලුම තරඟ විභාග ඉලක්ක කරගත් ගුණාත්මක ප්‍රශ්න පත්‍ර රැසකින් AstroQuiz සමන්විතයි. ඔබේ ඉලක්කය ජය ගැනීමට අවශ්‍ය නිවැරදි ප්‍රශ්න පත්‍රය දැන්ම පහසුවෙන් තෝරාගන්න.</p>
                                 </div>
                             </div>
-                         <div class="screenshot-card">
-                            <img src="screenshots/Screenshot_20260316_011420.jpg" alt="3">
-                            <div class="ss-info">
-                                <svg class="ss-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                <h4>Quiz Interface</h4>
-                                <p>නියමිත කාලයට ප්‍රශ්න පත්‍රවලට පිළිතුරු සපයා ඔබේ වේගය පරීක්ෂා කරගන්න. සෑම ප්‍රශ්නයකටම හිමි වන විනාඩියක කාලය අවසානයේ ඔබව ස්වයංක්‍රීයවම ඊළඟ ප්‍රශ්නයට යොමු කෙරේ. විභාග ශාලාවේදී කාලය නිවැරදිව පාලනය කරගැනීමට මෙය ඔබට කදිම පුහුණුවක් වනු ඇත.</p>
+                            <div class="screenshot-card">
+                                <img src="screenshots/Screenshot_20260316_011420.jpg" alt="3">
+                                <div class="ss-info">
+                                    <svg class="ss-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    <h4>Quiz Interface</h4>
+                                    <p>නියමිත කාලයට ප්‍රශ්න පත්‍රවලට පිළිතුරු සපයා ඔබේ වේගය පරීක්ෂා කරගන්න. සෑම ප්‍රශ්නයකටම හිමි වන විනාඩියක කාලය අවසානයේ ඔබව ස්වයංක්‍රීයවම ඊළඟ ප්‍රශ්නයට යොමු කෙරේ. විභාග ශාලාවේදී කාලය නිවැරදිව පාලනය කරගැනීමට මෙය ඔබට කදිම පුහුණුවක් වනු ඇත.</p>
+                                </div>
                             </div>
-                        </div>
                             <div class="screenshot-card">
                                 <img src="screenshots/Screenshot_20260317_094722.jpg" alt="4">
                                 <div class="ss-info">
