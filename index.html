@@ -41,6 +41,9 @@
         @keyframes glitch-anim2 { 0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.15deg); } 100% { clip: rect(23px, 9999px, 98px, 0); transform: skew(0.55deg); } }
         @keyframes glitch-skew { 0% { transform: skew(1deg); } 100% { transform: skew(0); } }
 
+        .company-link { text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: #475569; transition: 0.3s; }
+        .company-link:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
         /* --- Hero --- */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px; box-sizing: border-box; }
         .main-container { max-width: 1200px; width: 100%; animation: fadeIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -64,38 +67,42 @@
         .feature-svg { width: 38px; height: 38px; margin: 0 auto 15px; }
         .feature-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: #fff; }
         .feature-desc { font-size: 0.8rem; color: #94a3b8; line-height: 1.5; }
+        .feature-label-new { background: var(--tile-green); color: #fff; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 50px; display: inline-block; margin-bottom: 10px; }
         .tile-gk { border-color: var(--tile-amber); } .tile-iq { border-color: var(--tile-purple); } .tile-time { border-color: var(--tile-orange); } .tile-leaderboard { border-color: var(--tile-cyan); }
 
-        /* --- AstroQuiz Experience Section (Restored) --- */
+        /* --- AstroQuiz Experience Section --- */
         .screenshots-section { margin: 100px 0; padding: 80px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; perspective: 1800px; }
         .screenshots-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; font-weight: 800; }
-        .slider-container { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
+        .slider-container { position: relative; height: 550px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
         .slider-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        .screenshot-card { position: absolute; width: 550px; display: flex; flex-direction: row; border-radius: 35px; overflow: hidden; border: 1px solid var(--glass-border); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(15, 23, 42, 0.95); opacity: 0; pointer-events: none; }
+        
+        .screenshot-card { 
+            position: absolute; width: 550px; display: flex; flex-direction: row; border-radius: 35px; overflow: hidden; border: 1px solid var(--glass-border); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            background: rgba(15, 23, 42, 0.95); opacity: 0; pointer-events: none;
+        }
         .screenshot-card.active { transform: translate3d(0, 0, 200px) scale(1.1); opacity: 1; z-index: 10; pointer-events: auto; border-color: var(--primary); box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
         .screenshot-card.prev { transform: translate3d(-350px, 0, -200px) rotateY(35deg) scale(0.8); opacity: 0.4; z-index: 5; }
         .screenshot-card.next { transform: translate3d(350px, 0, -200px) rotateY(-35deg) scale(0.8); opacity: 0.4; z-index: 5; }
+        
         .screenshot-card img { width: 240px; height: auto; border-right: 1px solid var(--glass-border); }
         .ss-info { flex: 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center; }
         .ss-info h4 { margin: 0 0 10px 0; font-size: 1.2rem; color: var(--primary); font-weight: 700; }
         .ss-info p { margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
+
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; backdrop-filter: blur(10px); transition: 0.3s; }
         .nav-btn:hover { background: var(--primary); color: #000; }
-        .prev-btn { left: -20px; } .next-btn { right: -20px; }
+        .prev-btn { left: -30px; } .next-btn { right: -30px; }
 
-        /* --- Official Buttons --- */
+        /* --- Buttons --- */
         .button-group { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;}
         .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; background: #000; border: 1px solid var(--glass-border); color: #fff; }
         .btn:hover { transform: translateY(-3px); border-color: #fff; }
         .btn-text-wrap { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
-        .btn-small-top { font-size: 0.65rem; font-weight: 400; opacity: 0.8; }
-        .btn-main-bottom { font-size: 1.1rem; font-weight: 700; }
+        .btn-small-top { font-size: 0.65rem; opacity: 0.8; }
+        .btn-main-bottom { font-size: 1.1rem; }
         .web-btn { background: var(--primary); border: none; }
 
-        /* --- Direct Download & Support --- */
         .direct-dl-container { background: rgba(15, 23, 42, 0.6); border: 1px dashed var(--primary); border-radius: 20px; padding: 35px; max-width: 800px; margin: 40px auto; text-align: left; color: #cbd5e1; scroll-margin-top: 100px; }
-        .direct-dl-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 25px; margin-bottom: 25px; }
-        .direct-dl-container ol { padding-left: 20px; line-height: 1.8; font-size: 0.95rem; }
         .support-box { margin-top: 20px; padding: 20px; background: rgba(14, 165, 233, 0.1); border-radius: 15px; border-left: 4px solid var(--primary); display: flex; flex-direction: column; gap: 10px; }
         .support-links { display: flex; gap: 15px; flex-wrap: wrap; }
         .support-btn { text-decoration: none; padding: 8px 18px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.3s; color: #fff; }
@@ -110,7 +117,7 @@
 
     <nav>
         <div class="logo">SL<span class="glitch-x" data-text="X">X</span>AM<span>GUIDE.ONLINE</span></div>
-        <div style="font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: #475569;">ORBITVIEW INNOVATIONS</div>
+        <a href="company.html" class="company-link">ORBITVIEW INNOVATIONS</a>
     </nav>
 
     <div class="video-container">
@@ -132,18 +139,35 @@
                         <div class="feature-label-new">NEW 2026</div>
                         <svg class="feature-svg" fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
                         <div class="feature-title" style="color:var(--tile-green)">Teaching Exam</div>
+                        <div class="feature-desc">ගුරු විභාග සඳහාම සකස් කළ ඉලක්කගත පත්‍ර.</div>
                     </div>
-                    <div class="feature-item tile-gk"><svg class="feature-svg" fill="none" stroke="#d97706" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg><div class="feature-title" style="color:#fbbf24">General Knowledge</div></div>
-                    <div class="feature-item tile-iq"><svg class="feature-svg" fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg><div class="feature-title" style="color:#a78bfa">Intelligence IQ</div></div>
-                    <div class="feature-item tile-time"><svg class="feature-svg" fill="none" stroke="#ea580c" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div class="feature-title" style="color:#fb923c">Time Management</div></div>
-                    <div class="feature-item tile-leaderboard"><svg class="feature-svg" fill="none" stroke="#0891b2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg><div class="feature-title" style="color:#22d3ee">Leaderboards</div></div>
+                    <div class="feature-item tile-gk">
+                        <svg class="feature-svg" fill="none" stroke="#d97706" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        <div class="feature-title" style="color:#fbbf24">General Knowledge</div>
+                        <div class="feature-desc">ඕනෑම විභාගයකට අත්‍යවශ්‍ය සාමාන්‍ය දැනීම.</div>
+                    </div>
+                    <div class="feature-item tile-iq">
+                        <svg class="feature-svg" fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        <div class="feature-title" style="color:#a78bfa">Intelligence IQ</div>
+                        <div class="feature-desc">බුද්ධි පරීක්ෂණ ගැටළු සඳහා ඔබේ තර්කන හැකියාව.</div>
+                    </div>
+                    <div class="feature-item tile-time">
+                        <svg class="feature-svg" fill="none" stroke="#ea580c" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="feature-title" style="color:#fb923c">Time Management</div>
+                        <div class="feature-desc">විභාගයේදී කාලය නිවැරදිව කළමනාකරණය කරන්න.</div>
+                    </div>
+                    <div class="feature-item tile-leaderboard">
+                        <svg class="feature-svg" fill="none" stroke="#0891b2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <div class="feature-title" style="color:#22d3ee">Leaderboards</div>
+                        <div class="feature-desc">දිවයිනේ ප්‍රමුඛයන් අතර ඔබේ ස්ථානය දැනගන්න.</div>
+                    </div>
                 </div>
 
                 <div class="screenshots-section">
                     <h2>AstroQuiz අත්දැකීම</h2>
                     <div class="slider-container">
                         <div class="nav-btn prev-btn" onclick="movePrev()">❮</div>
-                        <div class="slider-wrapper">
+                        <div class="slider-wrapper" id="sliderWrapper">
                             <div class="screenshot-card"><img src="screenshots/Screenshot_20260317_094909.jpg" alt="1"><div class="ss-info"><h4>Login Screen</h4><p>ඔබේ ගිණුමට ආරක්ෂිතව පිවිසී ප්‍රගතිය සුරැකීමට ඇති පහසු අතුරුමුහුණත.</p></div></div>
                             <div class="screenshot-card"><img src="screenshots/Screenshot_20260317_094625.jpg" alt="2"><div class="ss-info"><h4>Categories</h4><p>ගුරු විභාග, IQ සහ GK අතරින් ඔබට අවශ්‍ය විෂය පහසුවෙන් තෝරාගන්න.</p></div></div>
                             <div class="screenshot-card"><img src="screenshots/Screenshot_20260317_094722.jpg" alt="6"><div class="ss-info"><h4>Leaderboard</h4><p>දිවයින පුරා සිටින තරඟකරුවන් අතර ඔබේ ස්ථානය සජීවීව බලාගන්න.</p></div></div>
@@ -163,7 +187,7 @@
 
                 <div class="direct-dl-container" id="direct-dl-section">
                     <div class="direct-dl-top">
-                        <div class="direct-dl-info"><h3>⚙️ Direct Download for Android</h3><p>Play Store වෙතින් ලබාගැනීමේ ක්‍රියාවලිය තවමත් සකසමින් පවතින බැවින්, දැනට මෙතැනින් කෙලින්ම Download කරගන්න.</p></div>
+                        <div class="direct-dl-info"><h3>⚙️ Direct Download for Android</h3><p>දැනට මෙතැනින් කෙලින්ම Download කරගන්න.</p></div>
                         <a href="https://github.com/ruwan-dev/gk_quiz_app/releases/download/v1.0.0/AstroQuize.apk" class="btn web-btn" style="padding: 12px 25px;">📥 Download APK</a>
                     </div>
                     <ol>
