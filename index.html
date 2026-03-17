@@ -92,7 +92,7 @@
         .screenshots-section { margin: 100px 0; padding: 80px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; perspective: 1800px; }
         .screenshots-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; font-weight: 800; }
         .slider-container { position: relative; height: 550px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
-        .slider-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        .slider-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; touch-action: pan-y; }
         
         .screenshot-card { 
             position: absolute; width: 550px; display: flex; flex-direction: row; border-radius: 35px; overflow: hidden; border: 1px solid var(--glass-border); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -102,7 +102,7 @@
         .screenshot-card.prev { transform: translate3d(-350px, 0, -200px) rotateY(35deg) scale(0.8); opacity: 0.4; z-index: 5; }
         .screenshot-card.next { transform: translate3d(350px, 0, -200px) rotateY(-35deg) scale(0.8); opacity: 0.4; z-index: 5; }
         
-        .screenshot-card img { width: 240px; height: auto; border-right: 1px solid var(--glass-border); }
+        .screenshot-card img { width: 240px; height: auto; border-right: 1px solid var(--glass-border); user-select: none; -webkit-user-drag: none; }
         .ss-info { flex: 1; padding: 30px; text-align: left; display: flex; flex-direction: column; justify-content: center; }
         
         .ss-card-icon { width: 34px; height: 34px; margin-bottom: 20px; stroke: var(--primary); stroke-width: 1.2; opacity: 0.9; }
@@ -110,9 +110,11 @@
         .ss-info h4 { margin: 0 0 10px 0; font-size: 1.2rem; color: #fff; font-weight: 700; }
         .ss-info p { margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
 
-        .slider-controls { display: flex; justify-content: center; gap: 30px; margin-top: 40px; position: relative; z-index: 20; }
-        .nav-btn { background: rgba(14, 165, 233, 0.1); border: 1px solid var(--primary); color: var(--primary); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; backdrop-filter: blur(10px); transition: 0.3s; font-size: 1.2rem; user-select: none; }
-        .nav-btn:hover { background: var(--primary); color: #000; }
+        .slider-controls { display: flex; justify-content: center; gap: 40px; margin-top: 40px; position: relative; z-index: 20; }
+        
+        .nav-btn { background: transparent; border: none; color: rgba(255, 255, 255, 0.5); width: auto; height: auto; padding: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-btn svg { width: 36px; height: 36px; stroke-width: 2.5px; }
+        .nav-btn:hover { color: var(--primary); transform: scale(1.2); filter: drop-shadow(0 0 12px var(--primary)); }
 
         .button-group { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;}
         .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; background: #000; border: 1px solid var(--glass-border); color: #fff; position: relative; }
@@ -154,19 +156,19 @@
             
             .feature-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
-            /* Reduced slider height and hid description for mobile */
-            .slider-container { height: 450px; }
-            .screenshot-card { width: 260px; flex-direction: column; }
-            .screenshot-card img { width: 100%; border-right: none; }
+            .slider-container { height: 560px; }
+            .screenshot-card { width: 260px; flex-direction: column; background: transparent; border: none; }
+            .screenshot-card img { width: 100%; height: auto; border-radius: 35px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
             .ss-info { display: none; }
             
             .screenshot-card.prev { transform: translate3d(-150px, 0, -200px) rotateY(35deg) scale(0.8); }
             .screenshot-card.next { transform: translate3d(150px, 0, -200px) rotateY(-35deg) scale(0.8); }
             
-            .nav-btn { width: 45px; height: 45px; font-size: 1rem; }
-            .slider-controls { margin-top: 20px; gap: 20px; }
+            .nav-btn { padding: 5px; }
+            .nav-btn svg { width: 30px; height: 30px; }
+            .slider-controls { margin-top: 30px; gap: 50px; }
 
-            .button-group { flex-direction: column; align-items: stretch; gap: 15px; margin-top: 20px; }
+            .button-group { flex-direction: column; align-items: stretch; gap: 15px; margin-top: 30px; }
             .btn { width: 100%; justify-content: center; box-sizing: border-box; }
 
             .direct-dl-top { flex-direction: column; text-align: center; align-items: stretch; }
@@ -183,12 +185,12 @@
             
             .feature-grid { grid-template-columns: 1fr; }
             
-            /* Further adjusted slider height for very small screens */
-            .slider-container { height: 420px; }
-            .screenshot-card { width: 230px; }
+            .slider-container { height: 500px; }
+            .screenshot-card { width: 240px; }
             .screenshot-card.prev { transform: translate3d(-90px, 0, -200px) rotateY(35deg) scale(0.8); opacity: 0.2; }
             .screenshot-card.next { transform: translate3d(90px, 0, -200px) rotateY(-35deg) scale(0.8); opacity: 0.2; }
             
+            .slider-controls { margin-top: 20px; }
             .direct-dl-container { padding: 25px 15px; }
         }
     </style>
@@ -212,7 +214,7 @@
     <div class="hero">
         <div class="main-container">
             <div class="main-panel">
-                <span class="badge">TRENDING Now TEACHING EXAM 2026</span>
+                <span class="badge">TRENDING NOW TEACHING EXAM 2026</span>
                 <div class="brand-intro">Slxamguide Presents</div>
                 <h1>Astro<span>Quiz</span></h1>
                 <div class="tagline">The Ultimate Exam Intelligence Platform</div>
@@ -241,7 +243,7 @@
                         <div class="feature-desc">විභාගයේදී කාලය නිවැරදිව කළමනාකරණය කරන්න.</div>
                     </div>
                     <div class="feature-item tile-leaderboard">
-                        <svg class="feature-svg" fill="none" stroke="#0891b2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <svg class="feature-svg" fill="none" stroke="#0891b2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                         <div class="feature-title" style="color:#22d3ee">Leaderboards</div>
                         <div class="feature-desc">දිවයිනේ ප්‍රමුඛයන් අතර ඔබේ ස්ථානය දැනගන්න.</div>
                     </div>
@@ -302,8 +304,12 @@
                         </div>
                     </div>
                     <div class="slider-controls">
-                        <div class="nav-btn prev-btn" onclick="movePrev()">❮</div>
-                        <div class="nav-btn next-btn" onclick="moveNext()">❯</div>
+                        <div class="nav-btn prev-btn" onclick="movePrev()">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        </div>
+                        <div class="nav-btn next-btn" onclick="moveNext()">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                        </div>
                     </div>
                 </div>
 
@@ -349,7 +355,12 @@
 
     <script>
         const cards = document.querySelectorAll('.screenshot-card');
+        const sliderWrapper = document.getElementById('sliderWrapper');
         let currentIndex = 0;
+        let slideInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
         function updateSlider() {
             cards.forEach((card, index) => {
                 card.classList.remove('active', 'prev', 'next');
@@ -358,10 +369,41 @@
                 else if (index === (currentIndex + 1) % cards.length) card.classList.add('next');
             });
         }
-        function moveNext() { currentIndex = (currentIndex + 1) % cards.length; updateSlider(); }
-        function movePrev() { currentIndex = (currentIndex - 1 + cards.length) % cards.length; updateSlider(); }
-        setInterval(moveNext, 20000);
+
+        function moveNext() { 
+            currentIndex = (currentIndex + 1) % cards.length; 
+            updateSlider(); 
+            resetInterval();
+        }
+
+        function movePrev() { 
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length; 
+            updateSlider(); 
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(moveNext, 20000);
+        }
+
+        sliderWrapper.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        sliderWrapper.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 40) moveNext(); 
+            if (touchEndX > touchStartX + 40) movePrev(); 
+        }
+
         updateSlider();
+        resetInterval();
+
         function scrollToDirectDL() {
             const section = document.getElementById('direct-dl-section');
             if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
