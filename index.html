@@ -31,7 +31,6 @@
         .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
 
         /* --- Animations --- */
-        @keyframes trendGradientAnimation { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
         @keyframes spaceFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -40,7 +39,7 @@
         .main-container { max-width: 1100px; width: 100%; animation: fadeIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .main-panel { background: var(--glass-bg); backdrop-filter: blur(40px); border: 1px solid var(--glass-border); border-radius: 40px; padding: 70px 50px; text-align: center; box-shadow: 0 40px 100px rgba(0,0,0,0.8); border-top: 2px solid var(--primary); animation: spaceFloat 6s ease-in-out infinite; }
 
-        .badge { color: #fff; padding: 7px 18px; border-radius: 50px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 25px; background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3), var(--trend-2), var(--trend-1)); background-size: 400% 400%; animation: trendGradientAnimation 6s ease infinite; box-shadow: 0 0 25px var(--trend-glow); letter-spacing: 1px; }
+        .badge { color: #fff; padding: 7px 18px; border-radius: 50px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 25px; background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3), var(--trend-2), var(--trend-1)); background-size: 400% 400%; animation: spaceFloat 6s ease infinite; box-shadow: 0 0 25px var(--trend-glow); letter-spacing: 1px; }
         h1 { font-size: 5.5rem; margin: 0; font-weight: 800; letter-spacing: -3px; line-height: 0.9; }
         h1 span { color: var(--primary); }
         .tagline { font-size: 1.25rem; margin: 20px 0 35px; color: #94a3b8; font-weight: 600; }
@@ -54,19 +53,22 @@
         .feature-desc { font-size: 0.85rem; color: #475569; line-height: 1.6; }
 
         .featured-card-gradient { border: 1px solid rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.05); border-radius: 20px; }
-        .feature-label-new { background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3)); background-size: 200% auto; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 12px; animation: trendGradientAnimation 3s linear infinite; box-shadow: 0 0 15px var(--trend-glow); }
-        .featured-text-gradient { background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3), var(--trend-2)); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: trendGradientAnimation 6s ease infinite; font-weight: 800; }
+        .feature-label-new { background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3)); background-size: 200% auto; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 12px; box-shadow: 0 0 15px var(--trend-glow); }
+        .featured-text-gradient { background: linear-gradient(270deg, var(--trend-1), var(--trend-2), var(--trend-3), var(--trend-2)); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
 
-        /* --- 📱 3D Slider Section Fix --- */
-        .screenshots-section { margin: 80px 0; padding: 60px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; perspective: 1500px; }
+        /* --- 📱 3D Slider Section (Overlap Fixed) --- */
+        .screenshots-section { margin: 100px 0; padding: 80px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); position: relative; perspective: 1500px; }
         .screenshots-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; font-weight: 800; }
-        .screenshots-section p.sec-desc { margin-bottom: 80px; color: #64748b; font-size: 1.1rem; }
         
-        .slider-container { position: relative; height: 500px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; margin-top: 50px; }
+        /* Subtitle පරතරය වැඩි කළා */
+        .screenshots-section p.sec-desc { margin-bottom: 100px; color: #64748b; font-size: 1.1rem; line-height: 1.6; }
+        
+        /* Container height එක 600px දක්වා වැඩි කළා overlap එක නැති කරන්න */
+        .slider-container { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; margin-top: 20px; }
         .slider-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
 
         .screenshot-card { 
-            position: absolute; width: 250px; height: auto;
+            position: absolute; width: 260px; height: auto;
             border-radius: 30px; overflow: hidden; 
             border: 1px solid var(--glass-border); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); 
             background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px);
@@ -78,11 +80,12 @@
         .ss-info h4 { margin: 0; font-size: 0.95rem; color: var(--primary); font-weight: 700; }
         .ss-info p { margin: 4px 0 0; font-size: 0.75rem; color: #94a3b8; }
 
-        .screenshot-card.active { transform: translate3d(0, 0, 100px) scale(1.15); opacity: 1; z-index: 10; pointer-events: auto; box-shadow: 0 25px 60px rgba(14, 165, 233, 0.4); border-color: var(--primary); }
-        .screenshot-card.prev { transform: translate3d(-230px, 0, -180px) rotateY(35deg) scale(0.85); opacity: 0.5; z-index: 5; }
-        .screenshot-card.next { transform: translate3d(230px, 0, -180px) rotateY(-35deg) scale(0.85); opacity: 0.5; z-index: 5; }
-        .screenshot-card.hidden-left { transform: translate3d(-500px, 0, -450px); opacity: 0; }
-        .screenshot-card.hidden-right { transform: translate3d(500px, 0, -450px); opacity: 0; }
+        /* 3D Positions */
+        .screenshot-card.active { transform: translate3d(0, 0, 150px) scale(1.1); opacity: 1; z-index: 10; pointer-events: auto; box-shadow: 0 30px 70px rgba(14, 165, 233, 0.4); border-color: var(--primary); }
+        .screenshot-card.prev { transform: translate3d(-250px, 0, -150px) rotateY(35deg) scale(0.8); opacity: 0.5; z-index: 5; }
+        .screenshot-card.next { transform: translate3d(250px, 0, -150px) rotateY(-35deg) scale(0.8); opacity: 0.5; z-index: 5; }
+        .screenshot-card.hidden-left { transform: translate3d(-500px, 0, -400px); opacity: 0; }
+        .screenshot-card.hidden-right { transform: translate3d(500px, 0, -400px); opacity: 0; }
 
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -96,7 +99,7 @@
         .prev-btn { left: 10px; }
         .next-btn { right: 10px; }
 
-        /* --- Buttons & Tooltips --- */
+        /* --- Buttons --- */
         .button-group { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;}
         .btn { padding: 18px 30px; border-radius: 100px; font-weight: 700; text-decoration: none; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; font-size: 0.95rem; position: relative; }
         .btn-outline { background: rgba(255, 255, 255, 0.03); color: #94a3b8; border: 1px solid var(--glass-border); backdrop-filter: blur(5px); }
@@ -104,21 +107,16 @@
         .btn-active-dl { border-color: var(--primary); color: #fff; }
         .coming-soon { font-size: 9px; opacity: 0.6; font-weight: 400; margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-        .tooltip-btn::after { content: attr(data-tooltip); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%) translateY(10px); background: rgba(15, 23, 42, 0.95); color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; opacity: 0; visibility: hidden; transition: 0.3s; border: 1px solid var(--primary); z-index: 100; }
-        .tooltip-btn:hover::after { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-
         /* --- ⚙️ Direct Download Box --- */
         .direct-dl-container { background: rgba(15, 23, 42, 0.6); border: 1px dashed var(--primary); border-radius: 20px; padding: 35px; max-width: 800px; margin: 0 auto; text-align: left; color: #cbd5e1; scroll-margin-top: 100px; }
         .direct-dl-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 25px; margin-bottom: 25px; }
         .direct-dl-info h3 { color: #fff; margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 12px; }
         .direct-dl-container ol { margin: 0; padding-left: 20px; line-height: 1.8; font-size: 0.95rem; }
-        .direct-dl-container li { margin-bottom: 15px; }
         .highlight { color: var(--primary); font-weight: bold; }
 
         footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--glass-border); background: rgba(2, 6, 23, 0.98); }
-        .footer-text { font-size: 0.85rem; color: #475569; }
 
-        @media (max-width: 768px) { h1 { font-size: 3.5rem; } .main-panel { padding: 40px 20px; } .screenshot-card { width: 200px; } .nav-btn { width: 40px; height: 40px; } .slider-container { height: 400px; } }
+        @media (max-width: 768px) { h1 { font-size: 3.5rem; } .main-panel { padding: 40px 20px; } .screenshot-card { width: 200px; } .slider-container { height: 450px; } .screenshots-section p.sec-desc { margin-bottom: 60px; } }
     </style>
 </head>
 <body>
@@ -186,26 +184,22 @@
                         </div>
                         <div class="nav-btn next-btn" onclick="moveNext()">❯</div>
                     </div>
-                    <p style="font-size: 0.85rem; color: #475569; margin-top: 25px;">Auto-swapping every 20s | Swipe or use buttons</p>
+                    <p style="font-size: 0.85rem; color: #475569; margin-top: 35px;">Auto-swapping every 20s | Swipe or use buttons</p>
                 </div>
 
                 <div class="button-group">
                     <a href="https://ruwan-dev.github.io/gk_quiz_app/" class="btn btn-outline btn-active-dl"><span class="btn-content">🌐 Try on Web</span><span class="coming-soon" style="opacity:1; color:var(--primary)">Live Now</span></a>
-                    
                     <a href="javascript:void(0)" onclick="scrollToDirectDL()" class="btn btn-outline tooltip-btn" data-tooltip="Still processing, try direct download">
                         <span class="btn-content">
                             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
                             Play Store
                         </span>
-                        <span class="coming-soon">Available Soon</span>
                     </a>
-
-                    <a href="javascript:void(0)" class="btn btn-outline tooltip-btn" data-tooltip="Still processing, iOS coming soon">
+                    <a href="javascript:void(0)" class="btn btn-outline tooltip-btn" data-tooltip="Available Soon">
                         <span class="btn-content">
                             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></svg>
                             App Store
                         </span>
-                        <span class="coming-soon">Available Soon</span>
                     </a>
                 </div>
 
@@ -215,10 +209,7 @@
                             <h3>⚙️ Direct Download for Android</h3>
                             <p>Play Store වෙතින් ලබාගැනීමේ ක්‍රියාවලිය තවමත් සකසමින් පවතින බැවින්, කරුණාකර දැනට මෙතැනින් කෙලින්ම Download කරගන්න.</p>
                         </div>
-                        <a href="https://github.com/ruwan-dev/gk_quiz_app/releases/download/v1.0.0/AstroQuize.apk" class="btn btn-outline btn-active-dl" style="padding: 12px 25px; width: auto;">
-                            <span class="btn-content">📥 Download APK</span>
-                            <span class="coming-soon" style="opacity: 1; color: var(--primary);">Direct Link</span>
-                        </a>
+                        <a href="https://github.com/ruwan-dev/gk_quiz_app/releases/download/v1.0.0/AstroQuize.apk" class="btn btn-outline btn-active-dl" style="padding: 12px 25px; width: auto;">📥 Download APK</a>
                     </div>
                     <ol>
                         <li>ඉහත <span class="highlight">Download APK</span> බටන් එක click කර APK ගොනුව Download කරගන්න.</li>
@@ -239,7 +230,6 @@
         function updateSlider() {
             cards.forEach((card, index) => {
                 card.classList.remove('active', 'prev', 'next', 'hidden-left', 'hidden-right');
-                
                 if (index === currentIndex) {
                     card.classList.add('active');
                 } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
