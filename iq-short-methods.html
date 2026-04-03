@@ -3,271 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IQ Short Methods Masterclass | AstroQuiz Academy</title>
+    <title>IQ Complete Masterclass 2026 | AstroQuiz Academy</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
     
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         :root {
             --primary: #0ea5e9;
-            --bg-dark: #0b0f19;
-            --sidebar-bg: #111827;
-            --card-bg: #1f2937;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border: rgba(255, 255, 255, 0.1);
-            --accent-green: #22c55e;
+            --bg-light: #f7f9fa;
+            --text-main: #1c1d1f;
+            --text-muted: #6a6f73;
+            --border: #d1d7dc;
+            --logic-bg: #fffcf0;
+            --logic-border: #f97316;
+            --radius: 16px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+        body { font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; background: #fff; color: var(--text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
-        /* --- Udemy Style Top Bar --- */
-        header {
-            height: 65px;
-            background: #111827;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 25px;
-            justify-content: space-between;
-            z-index: 100;
-        }
+        header { height: 65px; background: #1c1d1f; color: #fff; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; z-index: 1000; flex-shrink: 0; }
+        .back-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+        .course-title { font-size: 1rem; font-weight: 700; border-left: 1px solid #3e4143; padding-left: 20px; }
 
-        .back-btn {
-            color: var(--text-main);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .course-title-top {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* --- Main Layout --- */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* --- Sidebar (Curriculum) --- */
-        .sidebar {
-            width: 350px;
-            background: var(--sidebar-bg);
-            border-left: 1px solid var(--border);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(255,255,255,0.02);
-        }
-
-        .module-section {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .module-title {
-            padding: 15px 20px;
-            background: #1f2937;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .lesson-item {
-            padding: 12px 20px 12px 40px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .lesson-item:hover { background: rgba(14, 165, 233, 0.1); }
-        .lesson-item.active { background: rgba(14, 165, 233, 0.2); border-left: 4px solid var(--primary); }
-
-        .lesson-item input[type="checkbox"] { accent-color: var(--accent-green); }
-
-        /* --- Content Area --- */
-        .content-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 40px 10%;
-            scroll-behavior: smooth;
-        }
-
-        .content-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            margin-bottom: 30px;
-        }
-
-        .content-card h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.8rem; }
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
         
-        .method-step {
-            background: rgba(0,0,0,0.2);
+        /* content changes: flex:1 to allow proper growth */
+        .content-area { flex: 1; overflow-y: auto; padding: 40px 5%; background: #fff; scroll-behavior: smooth; }
+        .lesson-container { max-width: 800px; margin: 0 auto; }
+        .pane { display: none; animation: fadeIn 0.3s ease; }
+        .pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .cat-tag { font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+        h1 { font-size: 2rem; font-weight: 800; margin: 10px 0 20px; }
+
+        .method-card { background: #f7f9fa; border: 1px solid var(--border); padding: 25px; border-radius: var(--radius); margin: 20px 0; }
+        .logic-card { background: var(--logic-bg); border-left: 5px solid var(--logic-border); padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .example-box { border-left: 5px solid var(--primary); padding: 20px; background: #fff; border: 1px solid var(--border); border-left-width: 5px; border-radius: 8px; margin-top: 15px; }
+
+        /* Sidebar changes: moved to left, border-right */
+        .sidebar { width: 320px; background: #fff; border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; order: -1; }
+        .sidebar-h { padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); background: #f7f9fa; }
+        .module-title { padding: 15px 20px; background: #f1f3f4; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+        .item { padding: 14px 20px 14px 35px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid #f1f3f4; }
+        .item:hover { background: #f7f9fa; }
+        .item.active { background: #eef1f3; font-weight: 700; border-left: 5px solid #1c1d1f; }
+
+        /* Right Image changes */
+        .right-image-container {
+            width: 300px;
+            background-color: #fff;
+            border-left: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border-left: 4px solid var(--primary);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 65px);
+        }
+        .right-image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 90%;
+            border-radius: var(--radius);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .example-box {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(34, 197, 94, 0.05);
-            border: 1px dashed var(--accent-green);
-            border-radius: 8px;
+        /* Mobile View - wider breakpoint due to 3 columns */
+        @media (max-width: 1100px) { 
+            .right-image-container { display: none; }
         }
 
-        .btn-next {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 900px) {
-            .main-container { flex-direction: column; }
-            .sidebar { width: 100%; height: 300px; order: 2; }
-            .content-area { order: 1; }
+        @media (max-width: 768px) { 
+            .main-wrapper { flex-direction: column; overflow-y: auto; } 
+            body { overflow: auto; }
+            .sidebar { width: 100%; height: auto; max-height: 250px; order: 0; border-right: none; border-bottom: 1px solid var(--border); } 
+            .content-area { padding: 20px; overflow: visible; height: auto; } 
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="back-btn">
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Back to Academy
-        </a>
-        <div class="course-title-top">IQ Short Methods Masterclass 2026</div>
-        <div style="font-size: 0.8rem; color: var(--text-muted);">Progress: 65% Completed</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="index.html" class="back-link">✕ Exit</a>
+            <div class="course-title">IQ Full Masterclass: Sri Lanka Govt. Exams</div>
+        </div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">100% Free Access</div>
     </header>
 
-    <div class="main-container">
-        
-        <div class="content-area">
-            <div id="lesson-content">
-                <div class="content-card">
-                    <span style="color: var(--accent-green); font-weight: 700; font-size: 0.8rem;">MODULE 01: MATHEMATICAL TRICKS</span>
-                    <h2>01. සංඛ්‍යාවක් 5න් පහසුවෙන් බෙදන ක්‍රමය</h2>
-                    
-                    <p style="color: var(--text-muted);">ඕනෑම සංඛ්‍යාවක් 5න් බෙදීමේදී සාමාන්‍ය ක්‍රමයට වඩා 3 ගුණයක් වේගයෙන් පිළිතුර ලබාගත හැකි කෙටි ක්‍රමය මෙන්න.</p>
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-h">Full IQ Master Syllabus</div>
+            
+            <div class="module-title">1. Numerical Ability</div>
+            <div class="item active" onclick="sw('n1', this)">වේගය, කාලය සහ දුර</div>
+            <div class="item" onclick="sw('n2', this)">වയස පිළිබඳ ගැටලු</div>
+            <div class="item" onclick="sw('n3', this)">සංඛ්‍යා රටා (Series)</div>
+            <div class="item" onclick="sw('n4', this)">වෙනි රූප (Venn)</div>
 
-                    <div class="method-step">
-                        <strong>පියවර 01:</strong> දී ඇති සංඛ්‍යාව 2න් ගුණ කරන්න. (Double the number)<br>
-                        <strong>පියවර 02:</strong> ලැබෙන පිළිතුරේ අග සිට එක් ස්ථානයක් තබා දශම තිතක් තබන්න.
-                    </div>
+            <div class="module-title">2. Verbal Ability</div>
+            <div class="item" onclick="sw('v1', this)">අනන්‍යතාවය (Analogies)</div>
+            <div class="item" onclick="sw('v2', this)">අසමාන වචනය සෙවීම</div>
 
-                    <div class="example-box">
-                        <h4 style="color: var(--accent-green); margin-bottom: 10px;">උදාහරණය (Example):</h4>
-                        ගැටළුව: <strong>132 / 5 = ?</strong> <br><br>
-                        1. 132 x 2 = 264 <br>
-                        2. දශම තිත තැබූ විට = <strong>26.4</strong> <br><br>
-                        පිළිතුර තත්පර 2කින්!
-                    </div>
+            <div class="module-title">3. Logical Reasoning</div>
+            <div class="item" onclick="sw('l1', this)">දිශාවන් පිළිබඳ ගැටලු</div>
+            <div class="item" onclick="sw('l2', this)">ලේ නෑකම් (Relations)</div>
+            <div class="item" onclick="sw('l3', this)">අසුන් පැනවීම (Seating)</div>
 
-                    <a href="#" class="btn-next">මීළඟ පාඩම (Next Lesson) →</a>
-                </div>
+            <div class="module-title">4. Spatial Reasoning</div>
+            <div class="item" onclick="sw('s1', this)">දාදු කැට (Dice)</div>
+            <div class="item" onclick="sw('s2', this)">කැඩපත් ප්‍රතිබිම්බ (Mirror)</div>
+            <div class="item" onclick="sw('s3', this)">කඩදාසි නැවීම්</div>
+
+            <div class="module-title">5. Data & GI</div>
+            <div class="item" onclick="sw('g1', this)">දින දර්ශනය (Calendar)</div>
+            <div class="item" onclick="sw('g2', this)">ප්‍රස්තාර සහ වගු</div>
+
+            <div style="padding: 20px; background: #f7f9fa; border-top: 1px solid var(--border); margin-top: auto;">
+                <a href="https://github.com/ruwan-dev/gk_quiz_app/releases/download/v1.0.0/AstroQuize.apk" style="display: block; background: #1c1d1f; color: #fff; text-align: center; padding: 12px; text-decoration: none; font-weight: 700; border-radius: 8px;">Download Mobile App</a>
             </div>
-        </div>
+        </aside>
 
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h3 style="font-size: 1.1rem;">Course Content</h3>
-            </div>
+        <main class="content-area">
+            <div class="lesson-container">
 
-            <div class="module-section">
-                <div class="module-title">Section 1: ගණිතමය කෙටි ක්‍රම <span>▼</span></div>
-                <div class="lesson-list">
-                    <div class="lesson-item active">
-                        <input type="checkbox" checked>
-                        <span>01. 5න් බෙදීමේ කෙටි ක්‍රමය</span>
+                <div id="n1" class="pane active">
+                    <span class="cat-tag">1. Numerical Ability</span>
+                    <h1>වේගය, කාලය සහ දුර (Speed & Distance)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> $km/h$ සිට $m/s$ කිරීමට $\frac{5}{18}$ න් ගුණ කරන්න.
+                        <div class="example-box">
+                            <strong>Example:</strong> $72 \text{ km/h}$ යනු මීටර් කීයද? <br>
+                            $72 \times \frac{5}{18} = \mathbf{20 \text{ m/s}}$
+                        </div>
                     </div>
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>02. 11න් ගුණ කිරීමේ රහස</span>
-                    </div>
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>03. ඕනෑම අගයක වර්ගය (Square) සෙවීම</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="module-section">
-                <div class="module-title">Section 2: රූප සහ රටා <span>▼</span></div>
-                <div class="lesson-list">
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>04. ත්‍රිකෝණ ගණන් කිරීමේ සූත්‍රය</span>
-                    </div>
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>05. කැඩපතින් පෙනෙන වේලාව සෙවීම</span>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> පැයට කිලෝමීටර් 1ක් යනු තත්පරයට මීටර් $1000/3600$ කි. එය සරල කළ විට $5/18$ ලැබේ.
                     </div>
                 </div>
-            </div>
 
-            <div class="module-section">
-                <div class="module-title">Section 3: තර්කන හැකියාව <span>▼</span></div>
-                <div class="lesson-list">
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>06. ලේ ඥාතීන් ගැටළු (Blood Relations)</span>
+                <div id="n2" class="pane">
+                    <span class="cat-tag">1. Numerical Ability</span>
+                    <h1>වයස පිළිබඳ ගැටලු (Age Problems)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> අනුපාත අතර වෙනස සමාන කර ඒකක පදනමෙන් වයස සොයන්න.
+                        <div class="example-box">
+                            පියා සහ පුතාගේ වයස 3:1 වේ. වසර 10කට පසු 2:1 වේ නම් වර්තමාන වයස? <br>
+                            පරතරය සමාන කිරීමට 2:1 යන්න 4:2 ලෙස ගන්න. දැන් වෙනස 1 ඒකකයකි. 1 ඒකකය = වසර 10 කි.
+                        </div>
                     </div>
-                    <div class="lesson-item">
-                        <input type="checkbox">
-                        <span>07. දිශාවන් හඳුනා ගැනීම</span>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> පුද්ගලයන් දෙදෙනෙකු අතර වයස් පරතරය කාලයත් සමඟ වෙනස් නොවේ. එම මූලධර්මය මත අනුපාත සකස් කෙරේ.
                     </div>
                 </div>
-            </div>
 
+                <div id="n3" class="pane">
+                    <span class="cat-tag">1. Numerical Ability</span>
+                    <h1>සංඛ්‍යා රටා (Number Series)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> සංඛ්‍යා අතර වෙනස (Difference), වර්ග සංඛ්‍යා (Squares) හෝ ප්‍රථමක සංඛ්‍යා (Primes) පරීක්ෂා කරන්න.
+                        <div class="example-box">
+                            2, 4, 8, 16, ? <br>
+                            මෙහි රටාව පෙර සංඛ්‍යාව 2න් ගුණ කිරීමයි. පිළිතුර = <b>32</b>
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> සංඛ්‍යා රටාවක සැඟවුණු නියතයක් පවතී. එය ගණිතමය ක්‍රියාවලියක (Add, Sub, Mul, Div) ප්‍රතිඵලයකි.
+                    </div>
+                </div>
+
+                <div id="n4" class="pane">
+                    <span class="cat-tag">1. Numerical Ability</span>
+                    <h1>වෙනි රූප (Venn Diagrams)</h1>
+                    <div class="method-card">
+                        <strong>සූත්‍රය:</strong> $n(A \cup B) = n(A) + n(B) - n(A \cap B)$
+                        <div class="example-box">
+                            සිංහල සමත් 50, ඉංග්‍රීසි සමත් 40, විෂයයන් දෙකම සමත් 10 නම්, අවම එක් විෂයක් හෝ සමත් ගණන? <br>
+                            $50 + 40 - 10 = \mathbf{80}$
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> දෙවතාවක් ගණන් කිරීම (Double counting) වැළැක්වීමට පොදු කොටස එක් වරක් අඩු කරනු ලබයි.
+                    </div>
+                </div>
+
+                <div id="v1" class="pane">
+                    <span class="cat-tag">2. Verbal Ability</span>
+                    <h1>අනන්‍යතාවය හඳුනාගැනීම (Analogies)</h1>
+                    <div class="method-card">
+                        <strong>පියවර:</strong> වචන යුගල අතර ඇති අර්ථමය සම්බන්ධතාවය (සමාන පද, ස්ථානය හෝ ක්‍රියාව) හඳුනාගන්න.
+                        <div class="example-box">
+                            වෛද්‍යවරයා : රෝහල :: ගුරුවරයා : ? <br>
+                            පිළිතුර: <b>පාසල</b> (සේවය කරන ස්ථානය අනුව).
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> මොළය මගින් තොරතුරු වර්ගීකරණය කිරීමේ හැකියාව මෙහිදී පරීක්ෂා කෙරේ.
+                    </div>
+                </div>
+
+                <div id="v2" class="pane">
+                    <span class="cat-tag">2. Verbal Ability</span>
+                    <h1>අසමාන වචනය තේරීම (Odd One Out)</h1>
+                    <div class="method-card">
+                        <strong>පියවර:</strong> දී ඇති වචන 4න් 3ක්ම එකම ගණයකට (Category) අයත් වේදැයි බලන්න.
+                        <div class="example-box">
+                            සිංහයා, ව්‍යාඝ්‍රයා, වලසා, ගවයා <br>
+                            ගවයා හැර අනෙක් තිදෙනාම මාංශ භක්ෂකයින් වේ. පිළිතුර: <b>ගවයා</b>.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> වස්තූන් සතු ලක්ෂණ අතර පවතින විෂමතාවය හඳුනාගැනීම මෙහි තර්කයයි.
+                    </div>
+                </div>
+
+                <div id="l1" class="pane">
+                    <span class="cat-tag">3. Logical Reasoning</span>
+                    <h1>දිශාවන් පිළිබඳ ගැටලු (Directions)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> කෙටිම දුර සෙවීමට පයිතගරස් ප්‍රමේයය ($c = \sqrt{a^2 + b^2}$) භාවිතා කරන්න.
+                        <div class="example-box">
+                            උතුරට 3m සහ නැගෙනහිරට 4m ගිය විට විස්ථාපනය? <br>
+                            $\sqrt{3^2 + 4^2} = \mathbf{5 \text{m}}$
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> දිශා අතර කෝණය 90° බැවින් සැමවිටම සෘජුකෝණී ත්‍රිකෝණයක් නිර්මාණය වේ.
+                    </div>
+                </div>
+
+                <div id="l2" class="pane">
+                    <span class="cat-tag">3. Logical Reasoning</span>
+                    <h1>ලේ නෑකම් (Blood Relations)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> පවුල් ගසක් (Family Tree) අඳින්න. පිරිමි (+) සහ ගැහැණු (-) ලෙස සලකුණු කරන්න.
+                        <div class="example-box">
+                            "ඔහු මගේ පියාගේ එකම පුතාගේ දියණියයි" <br>
+                            මගේ පියාගේ එකම පුතා = මම. මගේ දියණිය = <b>දියණිය</b>.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> පරම්පරා (Generations) මට්ටම් වලට බෙදා බැලීමෙන් සම්බන්ධතාවය පැහැදිලි වේ.
+                    </div>
+                </div>
+
+                <div id="l3" class="pane">
+                    <span class="cat-tag">3. Logical Reasoning</span>
+                    <h1>අසුන් පැනවීම (Seating Arrangement)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> ස්ථිරවම දන්නා දත්තය මුලින්ම ලකුණු කර අනෙක් අය ඒ වටා වාඩි කරවන්න.
+                        <div class="example-box">
+                            වට මේසයක 6 දෙනෙක් සිටී නම්, එක් අයෙකුගේ වම සහ දකුණ මුලින්ම තීරණය කරන්න.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> අවකාශීය පිහිටීම් තාර්කිකව පෙළගැස්වීම මෙහි මූලික අරමුණයි.
+                    </div>
+                </div>
+
+                <div id="s1" class="pane">
+                    <span class="cat-tag">4. Spatial Reasoning</span>
+                    <h1>දාදු කැට (Dice Problems)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> සම්මත දාදු කැටයක ප්‍රතිවිරුද්ධ පැතිවල එකතුව 7 කි. (1-6, 2-5, 3-4).
+                        <div class="example-box">
+                            3 පෙනෙන්නට තිබේ නම් එහි යට පැත්තේ ඇත්තේ <b>4</b> කි.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> දාදු කැටයක් යනු ත්‍රිමාණ වස්තුවකි. එහි එක ළඟ ඇති පැති කිසිවිටෙකත් ප්‍රතිවිරුද්ධ නොවේ.
+                    </div>
+                </div>
+
+                <div id="s2" class="pane">
+                    <span class="cat-tag">4. Spatial Reasoning</span>
+                    <h1>කැඩපත් ප්‍රතිබිම්බ (Mirror Images)</h1>
+                    <div class="method-card">
+                        <strong>පියවර:</strong> වම සහ දකුණ මාරු කර (Lateral Inversion) රූපය සිතින් මවාගන්න.
+                        <div class="example-box">
+                            "p" අකුර කැඩපතින් පෙනෙන්නේ "q" අකුර ලෙසයි.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> පරාවර්තන නියමයන්ට අනුව ආලෝක කිරණ ආපසු හැරෙන බැවින් පැති මාරු වේ.
+                    </div>
+                </div>
+
+                <div id="s3" class="pane">
+                    <span class="cat-tag">4. Spatial Reasoning</span>
+                    <h1>කඩදාසි නැවීම් (Paper Folding)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> නැවුම් රේඛාව (Fold line) සමමිතික අක්ෂයක් (Axis of Symmetry) ලෙස සලකන්න.
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> සිදුරු කළ පසු දිග හරින විට එම සිදුරේම ප්‍රතිබිම්බයක් අනෙක් පසින්ද නිර්මාණය වේ.
+                    </div>
+                </div>
+
+                <div id="g1" class="pane">
+                    <span class="cat-tag">5. GI & Data</span>
+                    <h1>දින දර්ශනය (Calendar Logic)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> දින ගණන 7න් බෙදා ඉතිරිය (Odd days) බලන්න.
+                        <div class="example-box">
+                            අද සඳුදා නම් දින 50කට පසු? $50/7 = 7$ (ඉතිරි 1). <br>
+                            සඳුදා + 1 = <b>අඟහරුදා</b>.
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> සතියක් යනු දින 7ක චක්‍රයකි. 7න් බෙදූ පසු ඉතිරි වන ප්‍රමාණය සතියේ දිනය තීරණය කරයි.
+                    </div>
+                </div>
+
+                <div id="g2" class="pane">
+                    <span class="cat-tag">5. GI & Data</span>
+                    <h1>ප්‍රස්තාර සහ වගු (Data Interpretation)</h1>
+                    <div class="method-card">
+                        <strong>Shortcut:</strong> දත්තවල ප්‍රතිශත වෙනස (Percentage change) සෙවීමට: $\frac{\text{වෙනස}}{\text{මුල් අගය}} \times 100$
+                    </div>
+                    <div class="logic-card">
+                        <strong>💡 Logic:</strong> සංඛ්‍යාත්මක දත්ත රූපමය ආකාරයෙන් විශ්ලේෂණය කිරීම මෙහිදී සිදුවේ.
+                    </div>
+                </div>
+
+                <div style="margin-top: 60px; padding: 40px; background: #1c1d1f; color: #fff; border-radius: var(--radius); text-align: center;">
+                    <h2>100% අනුමාන ප්‍රශ්න පත්‍ර 2026</h2>
+                    <p style="opacity: 0.8; margin-bottom: 25px;">දැන්ම වෙබ් පෝටලය හරහා සියලුම විභාග ප්‍රශ්න පත්‍රවලට මුහුණ දෙන්න.</p>
+                    <a href="https://ruwan-dev.github.io/gk_quiz_app/" style="background: var(--primary); color: #fff; padding: 14px 35px; text-decoration: none; font-weight: 800; border-radius: 8px; display: inline-block;">WEB PORTAL එකට පිවිසෙන්න →</a>
+                </div>
+
+            </div>
+        </main>
+
+        <div class="right-image-container">
+            <img src="https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1" alt="Sri lanka goverment exams">
         </div>
     </div>
 
     <script>
-        // පාඩම් අතර මාරු වීමට අවශ්‍ය සරල Logic එකක් පසුව මෙතනට එක් කළ හැක.
-        document.querySelectorAll('.lesson-item').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelector('.lesson-item.active').classList.remove('active');
-                item.classList.add('active');
-                // මෙහිදී AJAX හෝ content change logic එකක් භාවිතා කළ හැක.
-            });
-        });
-    </script>
+        function sw(id, el) {
+            // Remove active class from all panes and sidebar items
+            document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
 
+            // Activate current pane and sidebar item
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
+                el.classList.add('active');
+            }
+
+            // Scroll content area to top
+            document.querySelector('.content-area').scrollTop = 0;
+
+            // Re-render MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+    </script>
 </body>
 </html>
