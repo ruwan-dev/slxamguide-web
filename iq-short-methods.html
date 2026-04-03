@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ Short Methods Masterclass | AstroQuiz Academy</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --bg-dark: #0b0f19;
+            --sidebar-bg: #111827;
+            --card-bg: #1f2937;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent-green: #22c55e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Udemy Style Top Bar --- */
+        header {
+            height: 65px;
+            background: #111827;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .back-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .course-title-top {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* --- Main Layout --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar (Curriculum) --- */
+        .sidebar {
+            width: 350px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .module-section {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-title {
+            padding: 15px 20px;
+            background: #1f2937;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lesson-item {
+            padding: 12px 20px 12px 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .lesson-item:hover { background: rgba(14, 165, 233, 0.1); }
+        .lesson-item.active { background: rgba(14, 165, 233, 0.2); border-left: 4px solid var(--primary); }
+
+        .lesson-item input[type="checkbox"] { accent-color: var(--accent-green); }
+
+        /* --- Content Area --- */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 10%;
+            scroll-behavior: smooth;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .content-card h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.8rem; }
+        
+        .method-step {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .example-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(34, 197, 94, 0.05);
+            border: 1px dashed var(--accent-green);
+            border-radius: 8px;
+        }
+
+        .btn-next {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .sidebar { width: 100%; height: 300px; order: 2; }
+            .content-area { order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Academy
+        </a>
+        <div class="course-title-top">IQ Short Methods Masterclass 2026</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Progress: 65% Completed</div>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="content-area">
+            <div id="lesson-content">
+                <div class="content-card">
+                    <span style="color: var(--accent-green); font-weight: 700; font-size: 0.8rem;">MODULE 01: MATHEMATICAL TRICKS</span>
+                    <h2>01. සංඛ්‍යාවක් 5න් පහසුවෙන් බෙදන ක්‍රමය</h2>
+                    
+                    <p style="color: var(--text-muted);">ඕනෑම සංඛ්‍යාවක් 5න් බෙදීමේදී සාමාන්‍ය ක්‍රමයට වඩා 3 ගුණයක් වේගයෙන් පිළිතුර ලබාගත හැකි කෙටි ක්‍රමය මෙන්න.</p>
+
+                    <div class="method-step">
+                        <strong>පියවර 01:</strong> දී ඇති සංඛ්‍යාව 2න් ගුණ කරන්න. (Double the number)<br>
+                        <strong>පියවර 02:</strong> ලැබෙන පිළිතුරේ අග සිට එක් ස්ථානයක් තබා දශම තිතක් තබන්න.
+                    </div>
+
+                    <div class="example-box">
+                        <h4 style="color: var(--accent-green); margin-bottom: 10px;">උදාහරණය (Example):</h4>
+                        ගැටළුව: <strong>132 / 5 = ?</strong> <br><br>
+                        1. 132 x 2 = 264 <br>
+                        2. දශම තිත තැබූ විට = <strong>26.4</strong> <br><br>
+                        පිළිතුර තත්පර 2කින්!
+                    </div>
+
+                    <a href="#" class="btn-next">මීළඟ පාඩම (Next Lesson) →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3 style="font-size: 1.1rem;">Course Content</h3>
+            </div>
+
+            <div class="module-section">
+                <div class="module-title">Section 1: ගණිතමය කෙටි ක්‍රම <span>▼</span></div>
+                <div class="lesson-list">
+                    <div class="lesson-item active">
+                        <input type="checkbox" checked>
+                        <span>01. 5න් බෙදීමේ කෙටි ක්‍රමය</span>
+                    </div>
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>02. 11න් ගුණ කිරීමේ රහස</span>
+                    </div>
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>03. ඕනෑම අගයක වර්ගය (Square) සෙවීම</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section">
+                <div class="module-title">Section 2: රූප සහ රටා <span>▼</span></div>
+                <div class="lesson-list">
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>04. ත්‍රිකෝණ ගණන් කිරීමේ සූත්‍රය</span>
+                    </div>
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>05. කැඩපතින් පෙනෙන වේලාව සෙවීම</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section">
+                <div class="module-title">Section 3: තර්කන හැකියාව <span>▼</span></div>
+                <div class="lesson-list">
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>06. ලේ ඥාතීන් ගැටළු (Blood Relations)</span>
+                    </div>
+                    <div class="lesson-item">
+                        <input type="checkbox">
+                        <span>07. දිශාවන් හඳුනා ගැනීම</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // පාඩම් අතර මාරු වීමට අවශ්‍ය සරල Logic එකක් පසුව මෙතනට එක් කළ හැක.
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelector('.lesson-item.active').classList.remove('active');
+                item.classList.add('active');
+                // මෙහිදී AJAX හෝ content change logic එකක් භාවිතා කළ හැක.
+            });
+        });
+    </script>
+
+</body>
+</html>
