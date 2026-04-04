@@ -37,22 +37,29 @@
         header { 
             height: 65px; background: #1c1d1f; color: #fff; display: flex; 
             align-items: center; padding: 0 20px; justify-content: space-between; 
-            z-index: 1000; flex-shrink: 0; 
+            z-index: 1050; flex-shrink: 0; position: relative;
         }
 
+        .header-left { display: flex; align-items: center; gap: 20px; }
         .back-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
         .course-title { font-size: 1rem; font-weight: 700; border-left: 1px solid #3e4143; padding-left: 20px; }
+        
+        /* Mobile Menu Button */
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; position: relative; }
 
         /* Sidebar */
-        .sidebar { width: 320px; background: #fff; border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; }
+        .sidebar { width: 320px; background: #fff; border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; z-index: 1000; }
         .sidebar-h { padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); background: #f7f9fa; }
         .module-title { padding: 15px 20px; background: #f1f3f4; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
         
         .item { padding: 14px 20px 14px 35px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid #f1f3f4; transition: 0.2s; }
         .item:hover { background: #f7f9fa; }
         .item.active { background: #eef1f3; font-weight: 700; border-left: 5px solid #1c1d1f; }
+
+        /* Mobile Overlay */
+        .overlay { display: none; }
 
         /* Content Area */
         .content-area { flex: 1; overflow-y: auto; padding: 40px 5%; background: #fff; scroll-behavior: smooth; }
@@ -92,7 +99,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0; /* Hidden initially */
+            opacity: 0; 
             transition: opacity 0.5s ease;
             position: relative;
             z-index: 2;
@@ -135,7 +142,6 @@
         .ex-item strong { color: #1c1d1f; }
         .ex-item .ans { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); color: #3e4143; }
 
-        /* --- SINHALA FRACTION FIX (To avoid broken letters in MathJax) --- */
         .s-frac {
             display: inline-flex;
             flex-direction: column;
@@ -157,25 +163,57 @@
         @keyframes shimmer { 0% { background-position: -468px 0; } 100% { background-position: 468px 0; } }
 
         @media (max-width: 1200px) { .right-full-section { display: none; } }
+        
+        /* ===== MOBILE RESPONSIVENESS FIX ===== */
         @media (max-width: 768px) { 
-            .main-wrapper { flex-direction: column; overflow-y: auto; }
-            .sidebar { width: 100%; height: auto; max-height: 250px; border-right: none; border-bottom: 1px solid var(--border); }
+            .menu-toggle { display: block; }
+            .header-left { gap: 10px; }
+            .course-title { font-size: 0.9rem; padding-left: 10px; }
+            
+            /* Hide sidebar by default on mobile, slide in on click */
+            .sidebar { 
+                position: fixed; 
+                top: 65px; 
+                left: -320px; /* Hidden outside the screen */
+                height: calc(100vh - 65px); 
+                box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+                transition: left 0.3s ease; 
+            }
+            .sidebar.open { left: 0; } /* Class added via JS to slide in */
+
+            /* Dark overlay for background when menu is open */
+            .overlay {
+                display: block;
+                position: fixed;
+                top: 65px; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            .overlay.open { opacity: 1; pointer-events: auto; }
+
             .content-area { padding: 20px; }
             .banner-wrapper { height: 150px; }
+            .mobile-hide-text { display: none; } /* To hide 100% syllabus text on very small screens if needed */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <a href="index.html" class="back-link">✕ Exit</a>
             <div class="course-title">IQ Full Masterclass 2026: AstroQuiz Portal</div>
         </div>
-        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">100% Syllabus Covered</div>
+        <div class="mobile-hide-text" style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">100% Syllabus Covered</div>
     </header>
 
     <div class="main-wrapper">
+        <div class="overlay" onclick="toggleMenu()"></div>
+
         <aside class="sidebar">
             <div class="sidebar-h">Course Curriculum</div>
             
@@ -919,6 +957,12 @@
     </div>
 
     <script>
+        // Menu Toggle Function for Mobile
+        function toggleMenu() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.overlay').classList.toggle('open');
+        }
+
         function sw(id, el) {
             document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(id);
@@ -933,6 +977,12 @@
             el.classList.add('active');
 
             document.querySelector('.content-area').scrollTop = 0;
+
+            // Close mobile menu automatically when a topic is selected
+            if (window.innerWidth <= 768) {
+                document.querySelector('.sidebar').classList.remove('open');
+                document.querySelector('.overlay').classList.remove('open');
+            }
 
             if (window.MathJax) {
                 MathJax.typesetPromise();
