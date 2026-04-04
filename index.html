@@ -13,7 +13,8 @@
             --text-main: #1c1d1f;
             --text-muted: #6a6f73;
             --border: #d1d7dc;
-            --skeleton: #f3f4f6;
+            --skeleton: #f0f2f5;
+            --skeleton-shine: #e4e6eb;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,9 +24,10 @@
             background-color: #ffffff;
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- Updated Navigation with Mobile Menu --- */
+        /* --- Navigation --- */
         nav {
             background: #fff;
             border-bottom: 1px solid var(--border);
@@ -49,18 +51,18 @@
             margin-left: 25px;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: 0.3s;
+            transition: color 0.3s;
         }
         .nav-links a:hover { color: var(--primary); }
 
-        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; }
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: #1c1d1f; z-index: 1001; }
 
-        /* --- Skeleton Loader Animation --- */
+        /* --- FB Style Skeleton Loader --- */
         .skeleton {
             background-color: var(--skeleton);
-            background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+            background-image: linear-gradient(90deg, var(--skeleton) 0px, var(--skeleton-shine) 50%, var(--skeleton) 100%);
             background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
+            animation: shimmer 1.5s infinite linear;
         }
 
         @keyframes shimmer {
@@ -68,16 +70,26 @@
             100% { background-position: 200% 0; }
         }
 
-        .img-wrapper { position: relative; overflow: hidden; background: var(--skeleton); }
-        .img-wrapper img { 
-            opacity: 0; 
-            transition: opacity 0.5s ease-in-out; 
+        /* Image Wrapper to handle loading and stretching */
+        .img-wrapper { 
             width: 100%; 
             height: 100%; 
-            display: block;
+            position: relative; 
+            overflow: hidden; 
         }
+
+        .img-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* මෙය පින්තූරය ඇදීම වළක්වයි */
+            object-position: center 15%; 
+            display: block;
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out; 
+        }
+
         .img-wrapper.loaded img { opacity: 1; }
-        .img-wrapper.loaded { background: transparent; }
+        .img-wrapper.loaded.skeleton { animation: none; background: transparent; }
 
         /* --- Hero Section --- */
         .hero-container {
@@ -86,33 +98,34 @@
             margin: 20px auto;
             height: 450px;
             background: #f7f9fa;
-            overflow: hidden;
             border-radius: 8px;
+            overflow: hidden;
         }
-
-        .hero-img-box { width: 100%; height: 100%; }
 
         .hero-floating-card {
             position: absolute;
             top: 50%;
             left: 50px;
             transform: translateY(-50%);
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95); /* පොඩි වීදුරු ගතියක් */
+            backdrop-filter: blur(5px);
             width: 460px;
             padding: 35px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-radius: 8px;
             z-index: 10;
         }
 
         .hero-floating-card h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 15px; font-weight: 800; }
+        .hero-floating-card p { font-size: 1rem; margin-bottom: 20px; color: var(--text-main); }
         .hero-floating-card .btn { 
-            background: #1c1d1f; color: #fff; padding: 12px 25px; 
+            background: #1c1d1f; color: #fff; padding: 14px 28px; 
             text-decoration: none; font-weight: 700; display: inline-block; 
-            border-radius: 4px;
+            border-radius: 6px; transition: 0.3s;
         }
+        .hero-floating-card .btn:hover { background: #3e4143; transform: translateY(-2px); }
 
-        /* --- Skills Grid --- */
+        /* --- Skills / Categories Section --- */
         .skills-section {
             max-width: 1340px;
             margin: 80px auto;
@@ -122,10 +135,15 @@
         }
 
         .skills-left { flex: 1; }
-        .skills-left h2 { font-size: 2.2rem; line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
+        .skills-left h2 { font-size: 2.2rem; line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
+        .skills-left h2 em { font-style: italic; font-family: serif; color: var(--text-muted); font-weight: 400; }
+        
+        .keyword-list { list-style: none; margin-top: 20px; }
+        .keyword-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 1rem; color: #3e4143; font-weight: 600; }
+        .keyword-list li::before { content: '✓'; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
 
         .skills-grid {
-            flex: 2;
+            flex: 1.5;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
@@ -138,13 +156,17 @@
             text-decoration: none;
             color: inherit;
             transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
         }
-        .skill-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .skill-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: var(--primary); }
 
-        .skill-img-box { height: 220px; width: 100%; }
+        .skill-img-box { height: 200px; width: 100%; }
 
-        .skill-info { padding: 20px; background: #fff; border-top: 1px solid var(--border); }
-        .skill-info h3 { font-size: 1.1rem; font-weight: 800; }
+        .skill-info { padding: 20px; flex-grow: 1; }
+        .skill-info h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 5px; }
+        .skill-info p { font-size: 0.9rem; color: var(--text-muted); }
 
         /* --- Responsive Styles --- */
         @media (max-width: 1024px) {
@@ -153,33 +175,45 @@
         }
 
         @media (max-width: 768px) {
-            nav { padding: 0 20px; }
+            nav { padding: 0 20px; position: relative; }
+            .menu-toggle { display: block; }
+            
+            /* Beautiful Mobile Menu sliding from top */
             .nav-links {
-                display: none; /* Hide by default on mobile */
-                flex-direction: column;
                 position: absolute;
                 top: 72px;
                 left: 0;
                 width: 100%;
                 background: #fff;
-                border-bottom: 1px solid var(--border);
-                padding: 20px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                display: flex;
+                border-bottom: 2px solid var(--primary);
             }
-            .nav-links.active { display: flex; }
-            .nav-links a { margin: 10px 0; font-size: 1rem; }
-            .menu-toggle { display: block; }
+            .nav-links.active { transform: translateY(0); }
+            .nav-links a { margin: 15px 0; font-size: 1.1rem; }
 
-            .hero-container { height: auto; }
-            .hero-img-box { display: none; }
+            .hero-container { height: auto; border-radius: 0; margin-top: 0; }
+            .hero-img-box { height: 250px; } /* Header image height on mobile */
+            
             .hero-floating-card { 
-                position: static; 
+                position: relative; 
                 transform: none; 
+                top: 0; left: 0; 
                 width: 100%; 
                 box-shadow: none; 
-                border-radius: 0;
-                padding: 40px 20px;
+                border-radius: 0; 
+                padding: 40px 20px; 
+                background: #fff;
+                border-bottom: 1px solid var(--border);
             }
+
+            .skills-section { margin-top: 40px; padding: 0 20px; }
             .skills-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -203,7 +237,7 @@
         
         <div class="hero-floating-card">
             <h1>Sri Lanka Government Exam Success Starts Here.</h1>
-            <p>ශ්‍රී ලංකා රජයේ විභාග සහ ගුරු විභාග සඳහා වන අංක 1 ඉගෙනුම් පෝටලය.</p>
+            <p>ශ්‍රී ලංකා රජයේ විභාග සහ ගුරු විභාග (Teaching Exams) සඳහා වන අංක 1 ඉගෙනුම් පෝටලය.</p>
             <a href="https://ruwan-dev.github.io/gk_quiz_app/" class="btn">Explore Portal →</a>
         </div>
     </header>
@@ -213,18 +247,19 @@
             <h2>Master <em>Government Exams</em> & <strong>Teaching</strong> Careers</h2>
             <p>AstroQuiz provides everything you need to ace Sri Lankan competitive exams.</p>
             
-            <ul style="list-style: none; margin-top: 20px;">
-                <li style="margin-bottom: 10px;">✓ ශ්‍රී ලංකා රජයේ විභාග</li>
-                <li style="margin-bottom: 10px;">✓ ගුරු විභාග අනුමාන පත්‍ර</li>
-                <li style="margin-bottom: 10px;">✓ බුද්ධි පරීක්ෂණ කෙටි ක්‍රම</li>
-                <li style="margin-bottom: 10px;">✓ සාමාන්‍ය දැනීම ප්‍රශ්නෝත්තර</li>
+            <ul class="keyword-list">
+                <li>ශ්‍රී ලංකා රජයේ විභාග (SL Govt Exams)</li>
+                <li>ගුරු විභාග අනුමාන පත්‍ර (Teaching Exam Papers)</li>
+                <li>බුද්ධි පරීක්ෂණ කෙටි ක්‍රම (IQ Short Methods)</li>
+                <li>සාමාන්‍ය දැනීම ප්‍රශ්නෝත්තර (GK Quiz)</li>
+                <li>පසුගිය විභාග ප්‍රශ්න පත්‍ර (Past Papers)</li>
             </ul>
         </div>
 
         <div class="skills-grid">
             <a href="iq-short-methods.html" class="skill-card">
                 <div class="skill-img-box img-wrapper skeleton">
-                    <img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=600" alt="IQ" onload="this.parentElement.classList.add('loaded')">
+                    <img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=600" alt="IQ and General Knowledge Sri Lanka" onload="this.parentElement.classList.add('loaded')">
                 </div>
                 <div class="skill-info">
                     <h3>IQ & General Knowledge</h3>
@@ -234,7 +269,7 @@
 
             <a href="teaching-exam-papers.html" class="skill-card">
                 <div class="skill-img-box img-wrapper skeleton">
-                    <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Teacher" onload="this.parentElement.classList.add('loaded')">
+                    <img src="images/teacher.png" alt="Teaching Exam Sri Lanka" onload="this.parentElement.classList.add('loaded')">
                 </div>
                 <div class="skill-info">
                     <h3>Teaching Exams (ගුරු විභාග)</h3>
@@ -244,7 +279,7 @@
 
             <a href="iq-test-papers.html" class="skill-card">
                 <div class="skill-img-box img-wrapper skeleton">
-                    <img src="https://images.pexels.com/photos/8106645/pexels-photo-8106645.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Papers" onload="this.parentElement.classList.add('loaded')">
+                    <img src="https://images.pexels.com/photos/8106645/pexels-photo-8106645.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Past Papers Sri Lanka" onload="this.parentElement.classList.add('loaded')">
                 </div>
                 <div class="skill-info">
                     <h3>Past & Model Papers</h3>
@@ -254,7 +289,7 @@
 
             <a href="#" class="skill-card">
                 <div class="skill-img-box img-wrapper skeleton">
-                    <img src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Govt" onload="this.parentElement.classList.add('loaded')">
+                    <img src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Government Competitive Exams" onload="this.parentElement.classList.add('loaded')">
                 </div>
                 <div class="skill-info">
                     <h3>Govt. Competitive Exams</h3>
@@ -266,15 +301,20 @@
 
     <footer style="padding: 60px 8%; background: #1c1d1f; color: #fff; text-align: center;">
         <p style="font-weight: 700; margin-bottom: 20px;">AstroQuiz Academy - Sri Lanka's #1 Exam Partner</p>
+        
         <div style="margin-bottom: 20px;">
             <a href="privacy.html" style="color: #fff; text-decoration: none; font-size: 0.85rem; margin: 0 15px; opacity: 0.8;">Privacy Policy</a>
             <a href="terms.html" style="color: #fff; text-decoration: none; font-size: 0.85rem; margin: 0 15px; opacity: 0.8;">Terms & Conditions</a>
         </div>
-        <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2026 slxamguide.online | Developed by OrbitView Innovations</p>
+
+        <p style="font-size: 0.8rem; opacity: 0.6; line-height: 2;">
+            &copy; 2026 slxamguide.online | Developed by OrbitView Innovations <br>
+            ශ්‍රී ලංකා රජයේ විභාග සඳහා වන අධ්‍යාපනික මගපෙන්වීමකි.
+        </p>
     </footer>
 
     <script>
-        // Mobile Menu Toggle Logic
+        // Smooth Mobile Menu Toggle
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
 
