@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>AstroQuiz Academy | Sri Lanka Government Exam Prep Portal</title>
+    <meta name="description" content="Sri Lanka Teachers' Service Recruitment, Graduate Teaching Exam 2026, SLAS, PMAS, and Core Government Exam preparation portal with IQ and GK past papers.">
+    <meta name="keywords" content="Graduate Teaching Exam 2026, Sri Lanka Teachers' Service Recruitment, National Schools teacher vacancies, Provincial teacher recruitment, Teaching Exam Online Application, Teaching exam admission card download, Teaching exam results 2025/2026, Teaching Aptitude Test past papers, General Knowledge for teaching exam, IQ model papers Sinhala/Tamil, Sri Lanka Teacher Service Grade 3-I (c), Sri Lanka Teacher Educator Service Grade III, SLEAS exam, SLAS 2026, Sri Lanka Accountants' Service exam, Sri Lanka Planning Service past papers, Public Management Assistants' Service exam, Development Officer exam, Authorized Officer exam results, Station Master recruitment 2025, Management Service Officers' Service, Government Gazette Sri Lanka, Government exam calendar 2026, past papers for government competitive exams, open competitive examination for recruitment">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
     
@@ -70,7 +73,6 @@
             100% { background-position: 200% 0; }
         }
 
-        /* Image Wrapper to handle loading and stretching */
         .img-wrapper { 
             width: 100%; 
             height: 100%; 
@@ -81,7 +83,7 @@
         .img-wrapper img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* මෙය පින්තූරය ඇදීම වළක්වයි */
+            object-fit: cover; 
             object-position: center 15%; 
             display: block;
             opacity: 0; 
@@ -91,7 +93,7 @@
         .img-wrapper.loaded img { opacity: 1; }
         .img-wrapper.loaded.skeleton { animation: none; background: transparent; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section with Slideshow --- */
         .hero-container {
             position: relative;
             max-width: 1340px;
@@ -102,12 +104,38 @@
             overflow: hidden;
         }
 
+        .slideshow-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; 
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
         .hero-floating-card {
             position: absolute;
             top: 50%;
             left: 50px;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95); /* පොඩි වීදුරු ගතියක් */
+            background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(5px);
             width: 460px;
             padding: 35px;
@@ -139,8 +167,25 @@
         .skills-left h2 em { font-style: italic; font-family: serif; color: var(--text-muted); font-weight: 400; }
         
         .keyword-list { list-style: none; margin-top: 20px; }
-        .keyword-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 1rem; color: #3e4143; font-weight: 600; }
-        .keyword-list li::before { content: '✓'; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        
+        /* Updated Checklist Styles for better long-text reading */
+        .keyword-list li { 
+            margin-bottom: 18px; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 12px; 
+            font-size: 0.95rem; 
+            color: #3e4143; 
+            line-height: 1.5;
+        }
+        .keyword-list li::before { 
+            content: '✓'; 
+            color: var(--primary); 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            margin-top: -2px;
+        }
+        .keyword-list strong { color: #1c1d1f; display: block; margin-bottom: 2px; }
 
         .skills-grid {
             flex: 1.5;
@@ -178,7 +223,6 @@
             nav { padding: 0 20px; position: relative; }
             .menu-toggle { display: block; }
             
-            /* Beautiful Mobile Menu sliding from top */
             .nav-links {
                 position: absolute;
                 top: 72px;
@@ -199,7 +243,7 @@
             .nav-links a { margin: 15px 0; font-size: 1.1rem; }
 
             .hero-container { height: auto; border-radius: 0; margin-top: 0; }
-            .hero-img-box { height: 250px; } /* Header image height on mobile */
+            .slideshow-container { position: relative; height: 250px; } 
             
             .hero-floating-card { 
                 position: relative; 
@@ -231,8 +275,19 @@
     </nav>
 
     <header class="hero-container">
-        <div class="hero-img-box img-wrapper skeleton">
-            <img src="header.png" alt="Sri Lanka Government Exam Preparation" onload="this.parentElement.classList.add('loaded')">
+        <div class="slideshow-container img-wrapper skeleton" id="hero-loader">
+            <div class="slide active">
+                <img src="header.png" alt="Government Exam 1" onload="removeLoader()">
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Teaching Exam Preparation">
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Govt Competitive Exams">
+            </div>
+            <div class="slide">
+                <img src="images/1714712121-govt-employees-6.jpg" alt="SLAS PMAS Exam Prep">
+            </div>
         </div>
         
         <div class="hero-floating-card">
@@ -248,11 +303,36 @@
             <p>AstroQuiz provides everything you need to ace Sri Lankan competitive exams.</p>
             
             <ul class="keyword-list">
-                <li>ශ්‍රී ලංකා රජයේ විභාග (SL Govt Exams)</li>
-                <li>ගුරු විභාග අනුමාන පත්‍ර (Teaching Exam Papers)</li>
-                <li>බුද්ධි පරීක්ෂණ කෙටි ක්‍රම (IQ Short Methods)</li>
-                <li>සාමාන්‍ය දැනීම ප්‍රශ්නෝත්තර (GK Quiz)</li>
-                <li>පසුගිය විභාග ප්‍රශ්න පත්‍ර (Past Papers)</li>
+                <li>
+                    <div>
+                        <strong>ගුරු විභාග (Teaching Exams)</strong>
+                        Graduate Teaching Exam 2026, SLEAS, සහ Teachers' Service Recruitment.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>ප්‍රධාන රාජ්‍ය විභාග (Core Govt Exams)</strong>
+                        SLAS 2026, PMAS, Development Officer, සහ Station Master Recruitment.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>විශේෂිත සේවා (Specialized Services)</strong>
+                        Sri Lanka Accountants' Service සහ Planning Service විභාග.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>අධ්‍යයන සහාය (Study Resources)</strong>
+                        Teaching Aptitude Test, IQ Model Papers, සහ General Knowledge Quiz.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>විභාග තොරතුරු (Exam Tools)</strong>
+                        Government Gazette Sri Lanka සහ Past Papers එකතුව.
+                    </div>
+                </li>
             </ul>
         </div>
 
@@ -322,6 +402,30 @@
             navMenu.classList.toggle('active');
             menuToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
         });
+
+        // Slideshow Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 } 
+            
+            slides[slideIndex - 1].classList.add('active');
+            
+            setTimeout(showSlides, 4000); 
+        }
+
+        if(slides.length > 0){
+             showSlides();
+        }
+
+        function removeLoader(){
+            document.getElementById('hero-loader').classList.add('loaded');
+            document.querySelectorAll('.slide img').forEach(img => img.style.opacity = '1');
+        }
     </script>
 
 </body>
