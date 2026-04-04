@@ -9,10 +9,7 @@
     
     <script>
         window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -24,8 +21,8 @@
             --text-main: #1c1d1f;
             --text-muted: #6a6f73;
             --border: #d1d7dc;
-            --logic-bg: #fffcf0;
-            --logic-border: #f97316;
+            --logic-bg: #f8fafc;
+            --logic-border: #0ea5e9;
             --radius: 16px;
         }
 
@@ -33,67 +30,33 @@
         
         body { 
             font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; 
-            background: #fff; 
-            color: var(--text-main); 
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            overflow: hidden; 
+            background: #fff; color: var(--text-main); display: flex; 
+            flex-direction: column; height: 100vh; overflow: hidden; 
         }
 
         header { 
-            height: 65px; 
-            background: #1c1d1f; 
-            color: #fff; 
-            display: flex; 
-            align-items: center; 
-            padding: 0 20px; 
-            justify-content: space-between; 
-            z-index: 1000; 
-            flex-shrink: 0;
+            height: 65px; background: #1c1d1f; color: #fff; display: flex; 
+            align-items: center; padding: 0 20px; justify-content: space-between; 
+            z-index: 1000; flex-shrink: 0; 
         }
 
         .back-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
         .course-title { font-size: 1rem; font-weight: 700; border-left: 1px solid #3e4143; padding-left: 20px; }
 
-        .main-wrapper { 
-            display: flex; 
-            flex: 1; 
-            overflow: hidden; 
-        }
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
 
-        /* Sidebar - Left Side */
-        .sidebar { 
-            width: 320px; 
-            background: #fff; 
-            border-right: 1px solid var(--border); 
-            overflow-y: auto; 
-            flex-shrink: 0;
-        }
-
+        /* Sidebar */
+        .sidebar { width: 320px; background: #fff; border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; }
         .sidebar-h { padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); background: #f7f9fa; }
         .module-title { padding: 15px 20px; background: #f1f3f4; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
         
-        .item { 
-            padding: 14px 20px 14px 35px; 
-            cursor: pointer; 
-            font-size: 0.85rem; 
-            border-bottom: 1px solid #f1f3f4; 
-            transition: 0.2s;
-        }
+        .item { padding: 14px 20px 14px 35px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid #f1f3f4; transition: 0.2s; }
         .item:hover { background: #f7f9fa; }
         .item.active { background: #eef1f3; font-weight: 700; border-left: 5px solid #1c1d1f; }
 
-        /* Content - Middle Section */
-        .content-area { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 40px 5%; 
-            background: #fff; 
-            scroll-behavior: smooth; 
-        }
-        
-        .lesson-container { max-width: 800px; margin: 0 auto; }
+        /* Content Area */
+        .content-area { flex: 1; overflow-y: auto; padding: 40px 5%; background: #fff; scroll-behavior: smooth; }
+        .lesson-container { max-width: 800px; margin: 0 auto; padding-bottom: 50px; }
         .pane { display: none; animation: fadeIn 0.3s ease; }
         .pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -101,69 +64,80 @@
         .cat-tag { font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
         h1 { font-size: 2rem; font-weight: 800; margin: 10px 0 20px; line-height: 1.2; }
 
-        .method-card { background: #f7f9fa; border: 1px solid var(--border); padding: 25px; border-radius: var(--radius); margin: 20px 0; }
-        .logic-card { background: var(--logic-bg); border-left: 5px solid var(--logic-border); padding: 20px; border-radius: 8px; margin: 20px 0; line-height: 1.6; }
-        .example-box { border-left: 5px solid var(--primary); padding: 20px; background: #fff; border: 1px solid var(--border); border-left-width: 5px; border-radius: 8px; margin-top: 15px; }
-
-        /* --- Right Side Portrait Image Section --- */
-        .right-full-section {
-            width: 350px;
-            height: 100%;
-            flex-shrink: 0;
-            background: #fff;
-            border-left: 1px solid var(--border);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .image-wrapper {
-            position: relative;
+        /* Topic Specific Image Style */
+        .topic-banner {
             width: 100%;
-            height: 100%;
-            padding: 20px;
-        }
-
-        .right-full-section img {
-            width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            border-radius: var(--radius);
-            opacity: 0; /* Load වෙනකම් පේන්නේ නැහැ */
-            transition: opacity 0.5s ease-in-out;
-            position: relative;
-            z-index: 2;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            background-color: #f0f2f5;
+            border: 1px solid var(--border);
         }
 
-        /* --- FB Style Skeleton Loader --- */
-        .skeleton {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            background: #f6f7f8;
-            background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-            background-repeat: no-repeat;
-            background-size: 800px 100%;
-            border-radius: var(--radius);
-            animation: shimmer 1.5s infinite linear;
-            z-index: 1;
+        .method-card { background: #f7f9fa; border: 1px solid var(--border); padding: 25px; border-radius: var(--radius); margin: 20px 0; }
+        
+        .logic-card { 
+            background: var(--logic-bg); 
+            border-left: 5px solid var(--logic-border); 
+            padding: 25px; 
+            border-radius: 8px; 
+            margin: 20px 0; 
+            line-height: 1.8; 
+            font-size: 0.95rem;
+            color: #3e4143;
         }
+        .logic-card h3 { color: #1c1d1f; margin-bottom: 10px; font-size: 1.1rem; }
+        .logic-card ul { margin-left: 20px; margin-top: 10px; }
+        .logic-card li { margin-bottom: 8px; }
+        
+        /* Graded Example List Styles */
+        .example-list { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .ex-item { background: #fff; padding: 15px 20px; border-radius: 8px; border: 1px solid var(--border); border-left-width: 5px; font-size: 0.95rem; }
+        
+        .ex-item.l1 { border-left-color: #22c55e; } 
+        .ex-item.l2 { border-left-color: #84cc16; }
+        .ex-item.l3 { border-left-color: #eab308; } 
+        .ex-item.l4 { border-left-color: #f97316; }
+        .ex-item.l5 { border-left-color: #ef4444; } 
+        
+        .lvl-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 800; color: #fff; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .l1 .lvl-badge { background: #22c55e; }
+        .l2 .lvl-badge { background: #84cc16; }
+        .l3 .lvl-badge { background: #eab308; }
+        .l4 .lvl-badge { background: #f97316; }
+        .l5 .lvl-badge { background: #ef4444; }
 
-        @keyframes shimmer {
-            0% { background-position: -468px 0; }
-            100% { background-position: 468px 0; }
+        .ex-item strong { color: #1c1d1f; }
+        .ex-item .ans { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); color: #3e4143; }
+
+        /* --- SINHALA FRACTION FIX (To avoid broken letters in MathJax) --- */
+        .s-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 5px;
+            font-weight: 600;
+            color: #1c1d1f;
         }
+        .s-frac span { padding: 2px 5px; line-height: 1.1; }
+        .s-frac .bottom { border-top: 2px solid #1c1d1f; }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .right-full-section { display: none; }
-        }
+        /* Right Image Section */
+        .right-full-section { width: 350px; height: 100%; flex-shrink: 0; background: #fff; border-left: 1px solid var(--border); overflow: hidden; position: relative; }
+        .image-wrapper { position: relative; width: 100%; height: 100%; padding: 20px; }
+        .right-full-section img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); opacity: 0; transition: opacity 0.5s ease; position: relative; z-index: 2; }
+        
+        .skeleton { position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; background: #f6f7f8; background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%); background-repeat: no-repeat; background-size: 800px 100%; border-radius: var(--radius); animation: shimmer 1.5s infinite linear; z-index: 1; }
+        @keyframes shimmer { 0% { background-position: -468px 0; } 100% { background-position: 468px 0; } }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) { .right-full-section { display: none; } }
+        @media (max-width: 768px) { 
             .main-wrapper { flex-direction: column; overflow-y: auto; }
             .sidebar { width: 100%; height: auto; max-height: 250px; border-right: none; border-bottom: 1px solid var(--border); }
-            .content-area { padding: 20px; height: auto; }
+            .content-area { padding: 20px; }
+            .topic-banner { height: 150px; }
         }
     </style>
 </head>
@@ -174,11 +148,10 @@
             <a href="index.html" class="back-link">✕ Exit</a>
             <div class="course-title">IQ Full Masterclass 2026: AstroQuiz Portal</div>
         </div>
-        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">Full Syllabus Covered</div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">100% Syllabus Covered</div>
     </header>
 
     <div class="main-wrapper">
-        
         <aside class="sidebar">
             <div class="sidebar-h">Course Curriculum</div>
             
@@ -216,48 +189,648 @@
 
                 <div id="n1" class="pane active">
                     <span class="cat-tag">Numerical Ability</span>
-                    <h1>වේගය, කාලය සහ දුර (Speed & Distance)</h1>
-                    <div class="method-card">
-                        <strong>Shortcut:</strong> $km/h$ සිට $m/s$ කිරීමට $\frac{5}{18}$ න් ගුණ කරන්න.
-                        <div class="example-box">
-                            <strong>Example:</strong> $72 \text{ km/h}$ වේගයෙන් යන දුම්රියක් තත්පර 10කදී යන දුර මීටර් කීයද? <br><br>
-                            1. වේගය $m/s$ කිරීම: $72 \times \frac{5}{18} = 20 \text{ m/s}$ <br>
-                            2. දුර සෙවීම ($Speed \times Time$): $20 \times 10 = \mathbf{200 \text{ m}}$
-                        </div>
-                    </div>
+                    <h1>වේගය, කාලය සහ දුර</h1>
+                    <img src="https://images.pexels.com/photos/46148/train-transport-fast-speed-46148.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Speed Concept Image">
+
                     <div class="logic-card">
-                        <strong>💡 Logic:</strong> පැයට කිලෝමීටර් 1ක් යනු තත්පරයට මීටර් $1000/3600$ කි. එය සරල කළ විට $5/18$ ලැබේ. දුම්රියක් කණුවක් පසු කරන්නේ නම්, පසු කරන දුර දුම්රියේ දිගට සමාන වේ.
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        වේගය, කාලය සහ දුර අතර ඇති සම්බන්ධතාවය බුද්ධි පරීක්ෂණයේ මූලිකම ගණිතමය කොටසකි. මෙහිදී ප්‍රධාන සූත්‍රය වන්නේ <strong>දුර = වේගය × කාලය</strong> යන්නයි.
+                        <ul>
+                            <li><strong>ඒකක පරිවර්තනය:</strong> ගැටලුවක වේගය $km/h$ වලින් දී, පිළිතුර $m/s$ වලින් ඉල්ලා ඇත්නම්, වේගය $\frac{5}{18}$ න් ගුණ කළ යුතුය.</li>
+                            <li><strong>දුම්රිය ගැටලු:</strong> දුම්රියක් විදුලි කණුවක් හෝ මිනිසෙක් පසු කරන විට, එය ගමන් කළ යුතු දුර වන්නේ 'දුම්රියේ දිග' පමණි. නමුත් දුම්රියක් පාලමක් පසු කරන්නේ නම්, මුළු දුර ලෙස 'දුම්රියේ දිග + පාලමේ දිග' ගත යුතුය.</li>
+                            <li><strong>සාපේක්ෂ වේගය:</strong> වස්තූන් දෙකක් එකම දිශාවට ගමන් කරයි නම් වේගයන් අඩු කළ යුතුය. වස්තූන් දෙකක් එකිනෙකා දෙසට (විරුද්ධව) ගමන් කරයි නම් වේගයන් එකතු කළ යුතුය.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල</span><br>
+                                <strong>ප්‍රශ්නය:</strong> පැයට කි.මී 72 ක වේගයෙන් යන වාහනයක තත්පරයකට වේගය ($m/s$) කීයද?
+                                <div class="ans"><strong>විසඳුම:</strong> $72 \times \frac{5}{18} = 20$ m/s</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - මූලික</span><br>
+                                <strong>ප්‍රශ්නය:</strong> $20$ m/s වේගයෙන් යන කාරයක් තත්පර 15 කදී යන දුර කීයද?
+                                <div class="ans"><strong>විසඳුම:</strong> දුර = වේගය $\times$ කාලය = $20 \times 15 = 300$ m</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - මධ්‍යම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> මීටර් 100ක් දිග දුම්රියක් $20$ m/s වේගයෙන් විදුලි කණුවක් පහු කිරීමට ගන්නා කාලය?
+                                <div class="ans"><strong>විසඳුම:</strong> කාලය = 
+                                    <div class="s-frac"><span>දුම්රියේ දිග</span><span class="bottom">වේගය</span></div> = 
+                                    $\frac{100}{20} = 5$ තත්පර
+                                </div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - සංකීර්ණ</span><br>
+                                <strong>ප්‍රශ්නය:</strong> මීටර් 100ක් දිග දුම්රියක් $20$ m/s වේගයෙන් මීටර් 200ක් දිග පාලමක් පහු කිරීමට ගන්නා කාලය?
+                                <div class="ans"><strong>විසඳුම:</strong> මුළු දුර = $100 + 200 = 300$ m. කාලය = $\frac{300}{20} = 15$ තත්පර</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - අති සංකීර්ණ</span><br>
+                                <strong>ප්‍රශ්නය:</strong> $60$ km/h සහ $40$ km/h වේගයෙන් එකිනෙකා දෙසට එන දුම්රිය දෙකක සාපේක්ෂ වේගය $m/s$ වලින්?
+                                <div class="ans"><strong>විසඳුම:</strong> විරුද්ධ දිශා බැවින් වේගයන් එකතු වේ. $60+40 = 100$ km/h. එය m/s කළ විට: $100 \times \frac{5}{18} = 27.7$ m/s</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="n2" class="pane">
                     <span class="cat-tag">Numerical Ability</span>
-                    <h1>වයස පිළිබඳ ගැටලු (Age Problems)</h1>
+                    <h1>වයස පිළිබඳ ගැටලු</h1>
+                    <img src="https://images.pexels.com/photos/15061642/pexels-photo-15061642.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Age Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        වයස පිළිබඳ ගැටලු විසඳීමේදී අඥාත පද (Variables) භාවිත කරනවාට වඩා "අනුපාත පරතරය" භාවිත කිරීමෙන් පිළිතුර ඉතා ඉක්මනින් ලබාගත හැක.
+                        <ul>
+                            <li><strong>ස්වර්ණමය නීතිය:</strong> පුද්ගලයන් දෙදෙනෙකු අතර ඇති වයස් පරතරය (Age gap) කාලයත් සමඟ කිසිවිටෙකත් වෙනස් නොවේ. අද පියාට වඩා පුතා වසර 25ක් බාල නම්, තව වසර 10කින් පසුවත් ඔහු බාල වන්නේ වසර 25කිනි.</li>
+                            <li>මෙම නියමය නිසා වර්තමාන අනුපාතය සහ අනාගත අනුපාතය අතර ඇති පරතරය සෑම විටම සමාන විය යුතුය.</li>
+                            <li><strong>කාල පරතරය:</strong> "වසර 5කට පෙර" සහ "වසර 5කට පසු" ලෙස දත්ත දී ඇත්නම්, එම අවස්ථා දෙක අතර මුළු කාල පරතරය වසර 10 කි.</li>
+                        </ul>
+                    </div>
+
                     <div class="method-card">
-                        <strong>Shortcut:</strong> අනුපාත අතර වෙනස (Difference) සමාන කර වයස සොයන්න.
-                        <div class="example-box">
-                            පියා සහ පුතාගේ වයස 3:1 වේ. වසර 10කට පසු එය 2:1 වේ නම් වර්තමාන වයස? <br>
-                            පරතරය සමාන කිරීමට 2:1 යන්න 4:2 ලෙස ගන්න. දැන් වෙනස 1 ඒකකයකි. 1 ඒකකය = වසර 10 කි. <br>
-                            පිළිතුර: පියා 30, පුතා 10.
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A හා B ගේ වයස් අනුපාතය 2:3 වේ. වයස් වල එකතුව 50 නම් A ගේ වයස?
+                                <div class="ans"><strong>විසඳුම:</strong> මුළු කොටස් = 5. එක් කොටසක් = $\frac{50}{5} = 10$. A ගේ වයස = $2 \times 10 = 20$.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - මූලික</span><br>
+                                <strong>ප්‍රශ්නය:</strong> පියාගේ වයස පුතා මෙන් දෙගුණයකි. ඔවුන්ගේ වයස් පරතරය 25 නම් පුතාගේ වයස?
+                                <div class="ans"><strong>විසඳුම:</strong> අනුපාතය 2:1. වෙනස = 1 කොටසකි. 1 කොටසක් = 25. පුතා = අවුරුදු 25.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - මධ්‍යම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A හා B ගේ වයස 3:1. වසර 10කට පසු එය 2:1 වේ. A ගේ වර්තමාන වයස?
+                                <div class="ans"><strong>විසඳුම:</strong> පරතරය සමාන කිරීමට 2:1 යන්න 4:2 ලෙස ගන්න. (3 $\rightarrow$ 4) වෙනස කොටස් 1යි. කොටස් 1 = වසර 10. A = $3 \times 10 = 30$.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - සංකීර්ණ</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වසර 5කට පෙර A හා B අනුපාතය 1:2. වසර 5කට පසු එය 2:3 වේ. අද B ගේ වයස?
+                                <div class="ans"><strong>විසඳුම:</strong> කාල පරතරය (5+5) = 10. අනුපාත වෙනස (1$\rightarrow$2) = 1 කොටසයි. කොටස් 1 = 10. පෙර B = $2 \times 10 = 20$. අද B = 25.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - අති සංකීර්ණ</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A හා B ගේ වයස්වල ගුණිතය 240 කි. අනුපාතය 3:5 නම් ඔවුන්ගේ වයස් මොනවාද?
+                                <div class="ans"><strong>විසඳුම:</strong> $3x \times 5x = 240 \Rightarrow 15x^2 = 240 \Rightarrow x^2 = 16 \Rightarrow x = 4$. වයස්: 12, 20.</div>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div id="n3" class="pane">
+                    <span class="cat-tag">Numerical Ability</span>
+                    <h1>සංඛ්‍යා රටා (Series)</h1>
+                    <img src="https://images.pexels.com/photos/7162624/pexels-photo-7162624.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Number Series Concept Image">
+
                     <div class="logic-card">
-                        <strong>💡 Logic:</strong> පුද්ගලයන් දෙදෙනෙකු අතර වයස් පරතරය කාලයත් සමඟ කිසිවිටෙකත් වෙනස් නොවේ. එම නිසා අනුපාත අතර පවතින ඒකක වෙනස සැමවිටම නියතයකි.
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        සංඛ්‍යා රටාවක් දුටු විගස පළමුව එය වැඩිවන හෝ අඩුවන රටාවක් දැයි හඳුනාගන්න. 
+                        <ul>
+                            <li><strong>පළමු පියවර (වෙනස සෙවීම):</strong> යාබද සංඛ්‍යා දෙකක් අතර වෙනස බලන්න. එය සමාන නම් හෝ රටාවකට වැඩිවේ නම් එය සමාන්තර ශ්‍රේණියකි.</li>
+                            <li><strong>දෙවන පියවර (ගුණිතය සෙවීම):</strong> සංඛ්‍යා ඉතා සීඝ්‍රයෙන් වැඩි වේ නම් (උදා: 2, 8, 32, 128) එය අනිවාර්යයෙන්ම ගුණ කිරීමක් හෝ වර්ග/ඝන අගයන් මත පදනම් වූවකි.</li>
+                            <li><strong>වෙනසේ වෙනස (Double Difference):</strong> පළමු වෙනසින් රටාවක් හඳුනාගත නොහැකි නම්, ලබාගත් වෙනසවල් අතර තවත් වෙනසක් සෙවීමෙන් සැඟවුණු රටා මතුකරගත හැක.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල එකතු කිරීම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2, 4, 6, 8, ?
+                                <div class="ans"><strong>විසඳුම:</strong> +2 බැගින් වැඩි වේ. පිළිතුර: 10</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - ප්‍රථමක සංඛ්‍යා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2, 3, 5, 7, 11, ?
+                                <div class="ans"><strong>විසඳුම:</strong> මේවා ප්‍රථමක සංඛ්‍යා වේ. මීළඟ සංඛ්‍යාව 13.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - වර්ග සංඛ්‍යා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 1, 4, 9, 16, ?
+                                <div class="ans"><strong>විසඳුම:</strong> $1^2, 2^2, 3^2, 4^2$. මීළඟ අගය $5^2 = 25$.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - ද්විත්ව වෙනස</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2, 5, 10, 17, ?
+                                <div class="ans"><strong>විසඳුම:</strong> වෙනස +3, +5, +7. මීළඟ වෙනස +9 විය යුතුය. පිළිතුර $17 + 9 = 26$.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - ගුණිත සහ එකතුව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 1, 3, 7, 15, 31, ?
+                                <div class="ans"><strong>විසඳුම:</strong> රටාව $(\times 2 + 1)$. එනම් $1\times2+1=3$, $3\times2+1=7$. පිළිතුර $31\times2+1 = 63$.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="n4" class="pane">
+                    <span class="cat-tag">Numerical Ability</span>
+                    <h1>වෙනි රූප (Venn Diagrams)</h1>
+                    <img src="https://images.pexels.com/photos/7092336/pexels-photo-7092336.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Venn Diagram Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        වෙනි රූප මගින් කුලක (Sets) අතර ඇති සම්බන්ධතා නිරූපණය කරයි. මෙහිදී "පමණක්" (Only) යන වචනය කෙරෙහි දැඩි අවධානයක් යොමු කළ යුතුය.
+                        <ul>
+                            <li><strong>මූලික සූත්‍රය:</strong> කුලක දෙකක් ඇති විට සමීකරණය වන්නේ <strong>මුළු ගණන = A හි ගණන + B හි ගණන - (දෙකම) + (කිසිවක් නොකරන)</strong>.</li>
+                            <li><strong>Both අඩු කරන්නේ ඇයි?:</strong> A සහ B යන කුලක දෙක එකතු කිරීමේදී, මැද ඇති "දෙකම කරන" පිරිස දෙවරක් ගණනය වේ. එබැවින් එය එක් වරක් අඩු කළ යුතුය.</li>
+                            <li>A පමණක් කරන අය සෙවීමට, A හි මුළු අගයෙන් "දෙකම කරන අයගේ" අගය අඩු කරන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A පන්තියේ 10යි. B හි 15යි. දෙකේම 5යි. මුළු ගණන?
+                                <div class="ans"><strong>විසඳුම:</strong> $10 + 15 - 5 = 20$.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - මූලික ඡේදනය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ළමුන් 40කි. 25ක් කිරි බොති. 20ක් තේ බොති. දෙකම බොන අය?
+                                <div class="ans"><strong>විසඳුම:</strong> $(25+20) - 40 = 5$. දෙකම බොන අය 5කි.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - කිසිවක් නොකරන (Neither)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ළමුන් 50කි. 30ක් ක්‍රිකට් ද, 20ක් පාපන්දු ද ගසයි. 10ක් කිසිවක් නොකරයි. දෙකම කරන අය?
+                                <div class="ans"><strong>විසඳුම:</strong> සෙල්ලම් කරන මුළු ගණන $50-10=40$. දෙකම කරන අය $(30+20) - 40 = 10$.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - 'පමණක්' (Only) යෙදීම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ක්‍රිකට් පමණක් 15යි. පාපන්දු පමණක් 20යි. දෙකම 5යි. මුළු ගණන?
+                                <div class="ans"><strong>විසඳුම:</strong> Only අගයන් සෘජුවම එකතු කළ හැක. $15 + 20 + 5 = 40$.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - කුලක 3ක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ළමුන් 30න්, 15ක් A ද, 15ක් B ද, 15ක් C ද කරයි. 5ක් A හා B ද, 5ක් B හා C ද, 5ක් A හා C ද කරයි. 2ක් තුනම කරයි. කිසිවක් නොකරන අය?
+                                <div class="ans"><strong>විසඳුම:</strong> සමීකරණය: $30 = 15+15+15 - (5+5+5) + 2 + N \Rightarrow N = -2$ (මෙය ආකෘතිය පැහැදිලි කිරීමට පමණි).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="v1" class="pane">
+                    <span class="cat-tag">Verbal Ability</span>
+                    <h1>අනන්‍යතාවය (Analogies)</h1>
+                    <img src="https://images.pexels.com/photos/8145325/pexels-photo-8145325.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Analogies Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        Analogies ගැටලු මගින් පරීක්ෂා කරන්නේ වචන හෝ සංකල්ප දෙකක් අතර පවතින "සම්බන්ධතාවයේ" ස්වභාවයයි.
+                        <ul>
+                            <li><strong>පළමු පියවර:</strong> ලබා දී ඇති පළමු වචන යුගලය අතර පැහැදිලි, සරල "වාක්‍යයක්" ගොඩනගා ගන්න. (උදා: A යනු B සෑදීමට යොදාගන්නා අමුද්‍රව්‍යයකි).</li>
+                            <li><strong>සම්බන්ධතා වර්ග:</strong> සමාන පද, විරුද්ධ පද, කොටසක් සහ සම්පූර්ණය (රෝදය සහ වාහනය), හේතුව සහ ප්‍රතිඵලය (වැස්ස සහ ගංවතුර), වෘත්තිය සහ උපකරණය (වඩුවා සහ කියත), සතා සහ වාසස්ථානය වැනි සම්බන්ධතා බහුලව අසයි.</li>
+                            <li>ඔබ ගොඩනැගූ වාක්‍යය ඉතිරි වචන යුගලයට ද ඒ ආකාරයෙන්ම ආදේශ කර නිවැරදි පිළිතුර තෝරන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල සමාන පද</span><br>
+                                <strong>ප්‍රශ්නය:</strong> සතුට : ප්‍රීතිය :: දුක : ?
+                                <div class="ans"><strong>විසඳුම:</strong> මේවා සමාන පද වේ. පිළිතුර: ශෝකය.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - වෘත්තිය සහ උපකරණය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ලියන්නා : පෑන :: වඩුවා : ?
+                                <div class="ans"><strong>විසඳුම:</strong> ලියන්නා පෑන භාවිත කරයි. වඩුවා කියත භාවිත කරයි. පිළිතුර: කියත.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - කොටස සහ සම්පූර්ණය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> රෝදය : වාහනය :: පිටුව : ?
+                                <div class="ans"><strong>විසඳුම:</strong> රෝදය වාහනයක කොටසකි. පිටුවක් යනු පොතක කොටසකි. පිළිතුර: පොත.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - අමුද්‍රව්‍ය සහ නිපැයුම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> කිරි : යෝගට් :: පිටි : ?
+                                <div class="ans"><strong>විසඳුම:</strong> කිරි වලින් යෝගට් සාදයි. පිටි වලින් පාන් සාදයි. පිළිතුර: පාන්.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - සංකීර්ණ සම්බන්ධතා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> බැරෝමීටරය : පීඩනය :: සිස්මෝග්‍රාෆය : ?
+                                <div class="ans"><strong>විසඳුම:</strong> බැරෝමීටරයෙන් පීඩනය මනියි. සිස්මෝග්‍රාෆයෙන් භූමිකම්පා මනියි. පිළිතුර: භූමිකම්පා.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="v2" class="pane">
+                    <span class="cat-tag">Verbal Ability</span>
+                    <h1>අසමාන වචනය සෙවීම</h1>
+                    <img src="https://images.pexels.com/photos/1000366/pexels-photo-1000366.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Odd One Out Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        පිළිතුරු 4ක් දී ඇත්නම්, ඉන් 3ක් කුමන හෝ එක් නිශ්චිත කුලකයකට අයත් විය යුතුය. අසමාන වචනය යනු එම කුලකයට අයත් නොවන එකයි.
+                        <ul>
+                            <li><strong>වැරදි ක්‍රමය:</strong> වෙනස් එක කුමක්දැයි සෙවීම ආරම්භ කිරීම වැරදිය. සෑම විටම අනෙක් 3 සමාන වන්නේ කෙසේදැයි (ඔවුන්ගේ පොදු ලක්ෂණය කුමක්දැයි) සොයන්න.</li>
+                            <li><strong>සංඛ්‍යා වලදී:</strong> ඔත්තේ/ඉරට්ටේ වීම, ප්‍රථමක සංඛ්‍යා (Prime) වීම, පූර්ණ වර්ග වීම හෝ 3න්/5න් බෙදීම වැනි ලක්ෂණ සලකා බලන්න.</li>
+                            <li><strong>වචන වලදී:</strong> පලතුරු/එළවළු, අභ්‍යන්තර/බාහිර අවයව, භෞතික/රසායනික වෙනස්වීම් වැනි විද්‍යාත්මක හෝ සාමාන්‍ය දැනුම මත පදනම් වූ වර්ගීකරණයන් ගැන සිතන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල කුලක</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙනස් එක කුමක්ද? බල්ලා, පූසා, ගවයා, සිංහයා
+                                <div class="ans"><strong>විසඳුම:</strong> අනෙක් සියල්ල ගෘහාශ්‍රිතයි. සිංහයා වන සතෙකි.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - සංඛ්‍යා කුලක</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙනස් එක කුමක්ද? 12, 14, 15, 17, 18
+                                <div class="ans"><strong>විසඳුම:</strong> 17 ප්‍රථමක සංඛ්‍යාවකි. අනෙක්වා සංයුක්ත සංඛ්‍යා වේ.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - වර්ග සංඛ්‍යා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙනස් එක කුමක්ද? 16, 25, 36, 48, 64
+                                <div class="ans"><strong>විසඳුම:</strong> 48 හැර අනෙක් සියල්ල පූර්ණ වර්ග සංඛ්‍යා වේ ($4^2, 5^2...$).</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - අක්ෂර රටා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙනස් එක? ABC, DEF, GHI, JKL, MOP
+                                <div class="ans"><strong>විසඳුම:</strong> MNO විය යුතුය. MOP අනුපිළිවෙල බිඳ දමයි.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - ඉලක්කම් එකතුව (Digit Sum)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙනස් එක? 235, 347, 415, 527
+                                <div class="ans"><strong>විසඳුම:</strong> 415 හැර අනෙක් සියල්ලේ පළමු ඉලක්කම් දෙකේ එකතුව තුන්වෙනි ඉලක්කම වේ ($2+3=5$, $3+4=7$).</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="l1" class="pane">
                     <span class="cat-tag">Logical Reasoning</span>
-                    <h1>දිශාවන් පිළිබඳ ගැටලු (Direction Sense)</h1>
+                    <h1>දිශාවන් පිළිබඳ ගැටලු</h1>
+                    <img src="https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Directions Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        මෙම ගැටලු විසඳීමේදී මූලික දිශා 4 (උතුර, දකුණ, නැගෙනහිර, බස්නාහිර) සහ අනු දිශා 4 පිළිබඳ අවබෝධය අත්‍යවශ්‍ය වේ.
+                        <ul>
+                            <li><strong>රූපයක් ඇඳීම:</strong> සෑම විටම පෑනෙන් කොළයක කුඩා සටහනක් ඇඳගන්න. ආරම්භක ලක්ෂ්‍යය කතිරයක් (x) ලෙස ලකුණු කරන්න.</li>
+                            <li><strong>පයිතගරස් ප්‍රමේයය:</strong> පුද්ගලයෙකු සෘජුව හැරීම් (90° කින්) සිදු කරන්නේ නම්, ආරම්භයේ සිට අවසානයට ඇති කෙටිම දුර (විකර්ණය) සෙවීමට පයිතගරස් සූත්‍රය භාවිත කරන්න.</li>
+                            <li><strong>සෙවනැලි ගැටලු:</strong> උදෑසන ඉර නැගෙනහිරින් පායන බැවින් සෙවනැලි බස්නාහිරට වැටේ. සවස සෙවනැලි නැගෙනහිරට වැටේ. දහවල් 12ට සෙවනැල්ලක් නොමැත.</li>
+                        </ul>
+                    </div>
+
                     <div class="method-card">
-                        <strong>Shortcut:</strong> සෘජුකෝණී ත්‍රිකෝණයක විකර්ණය සෙවීමට පයිතගරස් ප්‍රමේයය ($c = \sqrt{a^2 + b^2}$) භාවිතා කරන්න.
-                        <div class="example-box">
-                            උතුරට 3m ගොස් නැගෙනහිරට 4m ගිය විට ආරම්භක ස්ථානයේ සිට දුර? <br>
-                            $Distance = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = \mathbf{5 \text{m}}$
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල දිශාව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> උතුරට ගොස් දකුණට හැරුණහොත් මුහුණලා සිටින දිශාව?
+                                <div class="ans"><strong>විසඳුම:</strong> උතුරට ගොස් දකුණු අත පැත්තට (Right) හැරුණහොත් නැගෙනහිර වේ.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - පයිතගරස් දුර</span><br>
+                                <strong>ප්‍රශ්නය:</strong> උතුරට 3m, නැගෙනහිරට 4m ගිය විට දුර?
+                                <div class="ans"><strong>විසඳුම:</strong> $\sqrt{3^2 + 4^2} = \sqrt{25} = 5$ m.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - හැරීම් කිහිපයක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> උතුරට 10m, වමට 5m, නැවත වමට 10m. ආරම්භයට සාපේක්ෂව කොහේද?
+                                <div class="ans"><strong>විසඳුම:</strong> ඔහු U හැඩයකට ගමන් කර ඇත. ආරම්භයේ සිට බස්නාහිරින් 5m දුරින් සිටී.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - කෝණ (Angles)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> උතුර බලා සිටින අයෙක්, ඔරලෝසු කටු කැරකෙන දිශාවට 135° හැරුණහොත්?
+                                <div class="ans"><strong>විසඳුම:</strong> 90° කින් නැගෙනහිරට, තව 45° කින් ගිනිකොණ දිශාවට හැරේ. පිළිතුර: ගිනිකොණ.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - සෙවනැලි (Shadows)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> උදෑසන A හා B මුහුණට මුහුණ සිටී. A ගේ සෙවනැල්ල ඔහුගේ වම් පසට වැටේ. B මුහුණලා සිටින දිශාව?
+                                <div class="ans"><strong>විසඳුම:</strong> උදෑසන සෙවනැලි බස්නාහිරට වැටේ. A ගේ වම බස්නාහිර නම්, A උතුර බලා සිටී. එබැවින් B දකුණ බලා සිටී.</div>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div id="l2" class="pane">
+                    <span class="cat-tag">Logical Reasoning</span>
+                    <h1>ලේ නෑකම් (Blood Relations)</h1>
+                    <img src="https://images.pexels.com/photos/3228795/pexels-photo-3228795.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Blood Relations Concept Image">
+
                     <div class="logic-card">
-                        <strong>💡 Logic:</strong> දිශා හතර එකිනෙකට ලම්බක (90°) බැවින් ඕනෑම සෘජු හැරීමකදී නිර්මාණය වන්නේ සෘජුකෝණී ත්‍රිකෝණයකි.
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        ලේ නෑකම් ගැටලු මනසින් විසඳනවාට වඩා "පවුල් ගසක්" (Family Tree) ඇඳීමෙන් වරදින්නේ නැතිව විසඳිය හැක.
+                        <ul>
+                            <li><strong>සංකේත භාවිතය:</strong> පිරිමි කෙනෙක් සඳහා (+) ලකුණද, කාන්තාවක් සඳහා (-) ලකුණද භාවිත කරන්න. ස්වාමියා සහ භාර්යාව නම් සමාන (=) ලකුණකින් සම්බන්ධ කරන්න.</li>
+                            <li><strong>පරම්පරා වෙනස:</strong> පියා සහ පුතා වැනි පරම්පරා වෙනසක් ඇත්නම් ඉහළට සහ පහළට ඊතල භාවිත කරන්න. සහෝදර සහෝදරියන් නම් එකම තිරස් රේඛාවක අඳින්න.</li>
+                            <li><strong>"මම" ලෙස සිතීම:</strong> ඡායාරූපයක් පෙන්වා අසන ගැටලු වලදී කතා කරන පුද්ගලයා "මම" ලෙස සිතා ගැනීමෙන් නෑකම් ඉතා වේගයෙන් ග්‍රහණය කරගත හැක.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල නෑකම්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> මගේ පියාගේ එකම සහෝදරයා මට කවුද?
+                                <div class="ans"><strong>විසඳුම:</strong> මාමා / බාප්පා.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - ඡායාරූපයක් පෙන්වා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> පිරිමියෙක් පෙන්වා කාන්තාවක් කියයි "ඔහුගේ මව, මගේ මවගේ එකම දියණියයි". පිරිමියා ඇයට කවුද?
+                                <div class="ans"><strong>විසඳුම:</strong> මවගේ එකම දියණිය = ඇයමයි. පිරිමියාගේ මව ඇය නම්, ඔහු ඇගේ පුතාය.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - පවුල් ගස</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A යනු B ගේ පියාය. C යනු B ගේ මවය. A ට C කවුද?
+                                <div class="ans"><strong>විසඳුම:</strong> B ගේ දෙමව්පියන් A සහ C වේ. එබැවින් A සහ C ස්වාමියා සහ භාර්යාව වේ. පිළිතුර: භාර්යාව.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - Coded Relations</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A+B යනු A, B ගේ පියාය. A-B යනු A, B ගේ සහෝදරියයි. P+Q-R හි P ට R කවුද?
+                                <div class="ans"><strong>විසඳුම:</strong> P යනු Q ගේ පියාය. Q යනු R ගේ සහෝදරියයි. එබැවින් P යනු R ගේ ද පියාය.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - සංකීර්ණ පවුල් ප්‍රහේලිකා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> පවුලක 6 දෙනෙකි. පුරුෂයින් 3යි. A ධනවතාය. B දුප්පත්ය. A ගේ බිරිඳ C ය...
+                                <div class="ans"><strong>විසඳුම:</strong> මෙහිදී (+) සහ (-) සලකුණු යොදා පරම්පරා අනුව ගසක් ඇඳීම අනිවාර්ය වේ.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="l3" class="pane">
+                    <span class="cat-tag">Logical Reasoning</span>
+                    <h1>අසුන් පැනවීම (Seating Arrangements)</h1>
+                    <img src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Seating Arrangements Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        මෙහිදී පුද්ගලයන් පේළියක (Linear) හෝ රවුමක (Circular) වාඩි වී සිටින ආකාරය ගොඩනැගිය යුතුය.
+                        <ul>
+                            <li><strong>රවුමක වාඩි වී සිටීම:</strong> සියලු දෙනා රවුමේ <strong>මැදට</strong> මුහුණලා සිටී නම්; ඔවුන්ගේ "වම" යනු ඔරලෝසු කටු කැරකෙන දිශාවයි (Clockwise). ඔවුන්ගේ "දකුණ" යනු ඔරලෝසු කටු කැරකෙන දිශාවට විරුද්ධ දිශාවයි.</li>
+                            <li>ඔවුන් රවුමෙන් <strong>පිටතට</strong> මුහුණලා සිටී නම් ඉහත නීතිය සම්පූර්ණයෙන්ම කණපිට හැරේ.</li>
+                            <li><strong>ආරම්භය:</strong> ගැටලුව කියවන විට සැමවිටම ලබා දී ඇති "ස්ථිරම" තොරතුරෙන් (Definite Information) රූපය ඇඳීම ආරම්භ කරන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල පේළිය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> A, B, C පේළියක සිටී. B මැද සිටී. A දකුණු කෙළවරේ සිටී නම් වම් කෙළවරේ කවුද?
+                                <div class="ans"><strong>විසඳුම:</strong> C - B - A. පිළිතුර: C.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - සරල වෘත්තය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 4 දෙනෙක් රවුමක සිටී. A ට ඉදිරියෙන් C සිටී. B ගේ දකුණින් A සිටී නම් D කොහේද?
+                                <div class="ans"><strong>විසඳුම:</strong> A ගේ වම් පසින් B සිටී. C ට ඉදිරියෙන් D සිටිය යුතුය.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - පේළි දෙකක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> පේළි 2 ක 3ක් බැගින් මුහුණට මුහුණ සිටී...
+                                <div class="ans"><strong>විසඳුම:</strong> උතුර බලන අයගේ වම/දකුණ සහ දකුණ බලන අයගේ වම/දකුණ මාරු වන බව මතක තබා ගන්න.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - වෘත්තයේ 6 දෙනෙක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 6 දෙනෙක් මැද බලා සිටී. A සිටින්නේ B සහ C අතරය...
+                                <div class="ans"><strong>විසඳුම:</strong> B-A-C සහ C-A-B යන අවස්ථා දෙකම සලකා බැලිය යුතුය.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - වෘත්තය + වෙනත් දත්ත</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 8 දෙනෙක් සිටී. සමහරු මැද බලයි, සමහරු පිටත බලයි. ඔවුන්ගේ වෘත්තීන් ද වෙනස්ය.
+                                <div class="ans"><strong>විසඳුම:</strong> පිටත බලන අයගේ වම/දකුණ සාමාන්‍ය ක්‍රමයට වඩා සම්පූර්ණයෙන්ම විරුද්ධ බව සිතා රූප අඳින්න.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="s1" class="pane">
+                    <span class="cat-tag">Spatial Reasoning</span>
+                    <h1>දාදු කැට (Dice)</h1>
+                    <img src="https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Dice Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        දාදු කැට ගැටලුවලදී අසන්නේ එක් මුහුණතකට "විරුද්ධ" මුහුණත කුමක්ද යන්නයි. එකිනෙකට විරුද්ධ මුහුණත් කිසිවිටෙකත් එකවර දර්ශනය නොවේ (ඒවා අසල්වැසි විය නොහැක).
+                        <ul>
+                            <li><strong>සම්මත දාදු කැට (Standard Dice):</strong> මේවායේ එකිනෙකට විරුද්ධ පැති වල අගයන්ගේ එකතුව සෑම විටම 7 කි. (එනම් 1 ට විරුද්ධ 6, 2 ට විරුද්ධ 5, 3 ට විරුද්ධ 4).</li>
+                            <li><strong>එක් පොදු අංකයක් ඇති විට:</strong> දාදු කැටය දෙවරක් විසිකර ඇති රූප දෙකක, එක් අංකයක් පමණක් පොදු නම්, එම පොදු අංකයේ සිට ඔරලෝසු කටු කැරකෙන දිශාවට (Clockwise) අංක 3 පිළිවෙළට ලියන්න. සෘජුව ඉහළ සහ පහළ ඇති අංක එකිනෙකට විරුද්ධ වේ.</li>
+                            <li><strong>දිගහැරිය දාදු කැට (Open Dice):</strong> කැටයක් දිගහැරිය විට සෘජු රේඛාවක ඇති කොටු වල 'එකක් හැර එකක්' (Alternate boxes) එකිනෙකට විරුද්ධ වේ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සම්මත දාදු කැටය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> සම්මත දාදු කැටයක 1 ට විරුද්ධ පැත්තේ අංකය?
+                                <div class="ans"><strong>විසඳුම:</strong> සම්මත කැටයක විරුද්ධ පැති වල එකතුව 7 කි. $7 - 1 = 6$.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - එක් පොදු අංකයක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> රූප 2ක පොදු අංකය 3 වේ. 2 ට විරුද්ධ පැත්ත සෙවීම?
+                                <div class="ans"><strong>විසඳුම:</strong> 3 සිට ඔරලෝසු කටු දිශාවට (Clockwise) ගොස් අංක ලියන්න. සෘජුව යටින් එන අංක විරුද්ධ වේ.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - පොදු අංක දෙකක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> රූප 2ක 1 සහ 5 පොදු වේ. ඉතිරි මුහුණත් මොනවාද?
+                                <div class="ans"><strong>විසඳුම:</strong> පොදු අංක දෙක කැපී යයි. ඉතිරි වන අංක දෙක අනිවාර්යයෙන්ම එකිනෙකට විරුද්ධ වේ.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - විවෘත දාදු කැට</span><br>
+                                <strong>ප්‍රශ්නය:</strong> දිගහැරිය දාදු කැටයක විරුද්ධ මුහුණත් සොයන්නේ කෙසේද?
+                                <div class="ans"><strong>විසඳුම:</strong> සෘජු රේඛාවක ඇති එකක් හැර එකක් එකිනෙකට විරුද්ධ වේ.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - වර්ණ ගැන්වූ විවෘත කැට</span><br>
+                                <strong>ප්‍රශ්නය:</strong> විවෘත කැටයක් නැවූ විට සෑදෙන නිවැරදි කැටය තේරීම?
+                                <div class="ans"><strong>විසඳුම:</strong> විරුද්ධ මුහුණත් කිසිවිටෙකත් එකට පෙනෙන්නට බැහැ. ඒ නීතියෙන් වැරදි පිළිතුරු කපා හරින්න.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="s2" class="pane">
+                    <span class="cat-tag">Spatial Reasoning</span>
+                    <h1>කැඩපත් ප්‍රතිබිම්බ (Mirror Images)</h1>
+                    <img src="https://images.pexels.com/photos/3405555/pexels-photo-3405555.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Mirror Image Concept">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        කැඩපත් ප්‍රතිබිම්බයක මූලිකම නියමය වන්නේ <strong>Lateral Inversion</strong> හෙවත් "වම සහ දකුණ මාරු වීමයි".
+                        <ul>
+                            <li>මෙහිදී ඉහළ සහ පහළ (Top and Bottom) කිසිවිටෙකත් වෙනස් නොවේ. රූපයක් උඩු යටිකුරු වී ඇත්නම් එය කැඩපත් ප්‍රතිබිම්බයක් නොව ජල ප්‍රතිබිම්බයකි (Water Image).</li>
+                            <li><strong>අකුරු:</strong> ඉංග්‍රීසි හෝඩියේ A, H, I, M, O, T, U, V, W, X, Y යන අකුරු 11ෙහි කැඩපත් ප්‍රතිබිම්බය වෙනස් නොවේ (ඒවා සමමිතික බැවින්).</li>
+                            <li><strong>ඔරලෝසු ගැටලු:</strong> කැඩපතින් පෙනෙන වෙලාව ලබා දී නියම වෙලාව ඇසුවොත් (හෝ අනෙක් අතට), ලබා දී ඇති වෙලාව සෑම විටම <strong>11:60</strong> න් (එනම් 12:00 න්) අඩු කරන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - තනි අකුරු</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 'B' අකුරේ කැඩපත් රූපය?
+                                <div class="ans"><strong>විසඳුම:</strong> වම සහ දකුණ මාරු වේ. හැඩය උඩු යටිකුරු නොවේ.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - වචන (Words)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 'CAT' යන්නෙහි කැඩපත් රූපය?
+                                <div class="ans"><strong>විසඳුම:</strong> T මුලට එයි, C අගට යයි. අකුරු වල වම-දකුණ මාරු වේ. (T A Ɔ)</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - ඔරලෝසු වෙලාව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ඔරලෝසුවේ වෙලාව 3:00 යි. කැඩපතින් පෙනෙන වෙලාව?
+                                <div class="ans"><strong>විසඳුම:</strong> 12:00 න් අඩු කරන්න. $12:00 - 3:00 = 9:00$.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - මිනිත්තු සහිත වෙලාව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙලාව 8:20 යි. කැඩපතින් පෙනෙන වෙලාව?
+                                <div class="ans"><strong>විසඳුම:</strong> 11:60 න් අඩු කරන්න. $11:60 - 8:20 = 3:40$.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - ජල ප්‍රතිබිම්බ (Water Image)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෙලාව 8:20 යි. ජලයේ පෙනෙන වෙලාව?
+                                <div class="ans"><strong>විසඳුම:</strong> ජල ප්‍රතිබිම්බ සඳහා 18:30 න් අඩු කරන්න. $18:30 - 8:20 = 10:10$.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="s3" class="pane">
+                    <span class="cat-tag">Spatial Reasoning</span>
+                    <h1>කඩදාසි නැවීම් (Paper Folding)</h1>
+                    <img src="https://images.pexels.com/photos/1209307/pexels-photo-1209307.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Paper Folding Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        මෙම ගැටලු විසඳීමේදී ඔබ මනසින් කඩදාසිය "ආපස්සට" (Reverse order) දිග හැරිය යුතුය.
+                        <ul>
+                            <li><strong>සමමිතිය:</strong> කඩදාසිය නවා ඇති රේඛාව සෑම විටම "කැඩපතක්" ලෙස ක්‍රියා කරයි. කඩදාසිය දිගහරින සෑම අවස්ථාවකදීම අලුතින් මතුවන රූපය පෙර රූපයේ කැඩපත් ප්‍රතිබිම්බයකි.</li>
+                            <li><strong>සිදුරු ගණන:</strong> කඩදාසියක් 2කට නැවූ විට 1 සිදුරක් කැපුවහොත් දිගහැරිය විට සිදුරු 2ක් දිස්වේ. 4කට නැවුවහොත් සිදුරු $1 \times 4 = 4$ ක් දිස්වේ.</li>
+                            <li><strong>විකර්ණ නැමුම්:</strong> කඩදාසියක් කොනකින් (Diagonally) නවා ඇත්නම් එය දිගහරින විට රූපය 90° කින් භ්‍රමණය වූ ආකාරයේ හැඩයක් ගනී.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - එක් නැම්මක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> කඩදාසියක් හරි මැදින් නවා එක සිදුරක් කැපුවහොත්?
+                                <div class="ans"><strong>විසඳුම:</strong> දිගහැරිය විට සිදුරු 2 ක් සමමිතිකව දිස් වේ.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - නැමි දෙකක්</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 4 ට නවා එක් සිදුරක් කැපුවහොත්?
+                                <div class="ans"><strong>විසඳුම:</strong> දිගහැරිය විට සිදුරු $1 \times 4 = 4$ ක් ඇත.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - විකර්ණ නැමුම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> ත්‍රිකෝණයක් සෑදෙන සේ නවා සිදුරක් කැපුවහොත්?
+                                <div class="ans"><strong>විසඳුම:</strong> විකර්ණ අක්ෂයට සාපේක්ෂව කැඩපත් ප්‍රතිබිම්බය ලෙස දිගහැරේ.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - හැඩතල කැපීම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> නැවූ කඩදාසියේ දාරයෙන් අර්ධ කවයක් කැපුවහොත්?
+                                <div class="ans"><strong>විසඳුම:</strong> දිගහැරිය විට අර්ධ කවය සම්පූර්ණ කවයක් බවට පත් වේ.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - සංකීර්ණ රටා</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වෘත්තාකාර කඩදාසියක් කේතු (Cone) හැඩයට නවා සිදුරු කිරීම?
+                                <div class="ans"><strong>විසඳුම:</strong> අවසාන නැම්මේ සිට ආපස්සට පියවරෙන් පියවර Water/Mirror Images යොදාගනිමින් මනසින් දිගහරින්න.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="g1" class="pane">
+                    <span class="cat-tag">Data & General Intelligence</span>
+                    <h1>දින දර්ශනය (Calendar)</h1>
+                    <img src="https://images.pexels.com/photos/273153/pexels-photo-273153.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Calendar Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        දින දර්ශන ගැටලු වල මූලිකම හරය වන්නේ "ඉතිරි දින" (Odd Days) සංකල්පයයි.
+                        <ul>
+                            <li><strong>Odd Days සෙවීම:</strong> ලබා දී ඇති මුළු දින ගණන 7න් බෙදූ විට ලැබෙන "ඉතිරිය" Odd days ලෙස හැඳින්වේ. දින ගණන් කරන්නේ මෙම ඉතිරි දින ගණන පමණි.</li>
+                            <li><strong>අවුරුදු මාරුව:</strong> සාමාන්‍ය අවුරුද්දක දින 365 කි (ඉතිරිය 1). එබැවින් සාමාන්‍ය අවුරුද්දකින් ඊළඟ අවුරුද්දට යද්දී දවස 1කින් ඉදිරියට යයි.</li>
+                            <li><strong>අධික අවුරුදු:</strong> අධික අවුරුද්දක (Leap year) දින 366 කි (ඉතිරිය 2). එය 4න් බෙදෙන වසරකි. මෙවිට දවස් 2කින් ඉදිරියට යයි. (මෙය වලංගු වන්නේ පෙබරවාරි 29 අදාළ කාල සීමාවට ඇතුළත් වන්නේ නම් පමණි).</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල දින ගණන</span><br>
+                                <strong>ප්‍රශ්නය:</strong> අද සඳුදා නම් දින 15කට පසු දවස?
+                                <div class="ans"><strong>විසඳුම:</strong> 15 $\div$ 7 = 2 ඉතිරිය 1. සඳුදා + 1 = අඟහරුවාදා.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - මාස මාරුව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> මාර්තු 1 සඳුදා නම්, අප්‍රේල් 1?
+                                <div class="ans"><strong>විසඳුම:</strong> මාර්තු දින 31යි. 31 $\div$ 7 ඉතිරිය 3. සඳුදා + 3 = බ්‍රහස්පතින්දා.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - සාමාන්‍ය අවුරුදු මාරුව</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2023 ජනවාරි 1 ඉරිදා නම්, 2024 ජනවාරි 1?
+                                <div class="ans"><strong>විසඳුම:</strong> සාමාන්‍ය අවුරුද්දක Odd days 1 යි. ඉරිදා + 1 = සඳුදා.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - අධික අවුරුදු</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2024 ජනවාරි 1 සඳුදා නම්, 2025 ජනවාරි 1?
+                                <div class="ans"><strong>විසඳුම:</strong> 2024 අධික අවුරුද්දකි. Odd days 2 යි. සඳුදා + 2 = බදාදා.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - ආපස්සට ගණනය</span><br>
+                                <strong>ප්‍රශ්නය:</strong> අද බදාදා නම් දින 40කට පෙර දවස?
+                                <div class="ans"><strong>විසඳුම:</strong> 40 $\div$ 7 ඉතිරිය 5. බදාදා - 5 (හෝ බදාදා + 2) = සිකුරාදා.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="g2" class="pane">
+                    <span class="cat-tag">Data & General Intelligence</span>
+                    <h1>ප්‍රස්තාර සහ වගු (Data Interpretation)</h1>
+                    <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Data Interpretation Concept Image">
+
+                    <div class="logic-card">
+                        <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
+                        මෙම කොටසේදී සිසුන්ගේ දත්ත කියවීමේ සහ අවබෝධ කර ගැනීමේ හැකියාව පරීක්ෂා කෙරේ. බොහෝවිට මේවා තීරු ප්‍රස්තාර, රේඛා ප්‍රස්තාර හෝ වට ප්‍රස්තාර ලෙස ඉදිරිපත් වේ.
+                        <ul>
+                            <li><strong>පළමු පියවර:</strong> ප්‍රශ්න කියවීමට පෙර ප්‍රස්තාරයේ මාතෘකාව, X අක්ෂය සහ Y අක්ෂය මගින් නිරූපණය කරන්නේ කුමක්දැයි පැහැදිලිව තේරුම් ගන්න.</li>
+                            <li><strong>ගණිත කර්ම:</strong> මෙහිදී බොහෝවිට අසන්නේ අගයන් දෙකක් අතර එකතුව, සාමාන්‍යය (Average) හෝ ප්‍රතිශතය (Percentage) සෙවීමයි.</li>
+                            <li><strong>වර්ධන ප්‍රතිශතය:</strong> අගයක් වර්ධනය වී ඇති ප්‍රතිශතය සෙවීමට; <strong>(වෙනස ÷ මුල් අගය) × 100</strong> යන ක්‍රමය භාවිත කරන්න.</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <div class="example-list">
+                            <div class="ex-item l1">
+                                <span class="lvl-badge">Level 1 - සරල දත්ත කියවීම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> තීරු ප්‍රස්තාරයක ඉහළම අගය පෙන්වන වසර කුමක්ද?
+                                <div class="ans"><strong>විසඳුම:</strong> ප්‍රස්තාරයේ උසම තීරුව (Bar) අදාළ වන වසර සෙවීම.</div>
+                            </div>
+                            <div class="ex-item l2">
+                                <span class="lvl-badge">Level 2 - එකතුව සහ වෙනස</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 2020 සහ 2021 මුළු ලාභය කොපමණද?
+                                <div class="ans"><strong>විසඳුම:</strong> අදාළ වසර දෙකේ අගයන් වගුවෙන් ගෙන එකතු කිරීම.</div>
+                            </div>
+                            <div class="ex-item l3">
+                                <span class="lvl-badge">Level 3 - ප්‍රතිශතය සෙවීම</span><br>
+                                <strong>ප්‍රශ්නය:</strong> 40 සිට 50 දක්වා ලාභය වැඩි වීමේ ප්‍රතිශතය?
+                                <div class="ans"><strong>විසඳුම:</strong> වර්ධනය = 10. ප්‍රතිශතය = $\frac{10}{40} \times 100 = 25\%$.</div>
+                            </div>
+                            <div class="ex-item l4">
+                                <span class="lvl-badge">Level 4 - සාමාන්‍යය (Average)</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වසර 5ක සාමාන්‍ය ලාභය කීයද?
+                                <div class="ans"><strong>විසඳුම:</strong> වසර 5ම අගයන් එකතු කර 5න් බෙදීම.</div>
+                            </div>
+                            <div class="ex-item l5">
+                                <span class="lvl-badge">Level 5 - වට ප්‍රස්තාර කෝණ</span><br>
+                                <strong>ප්‍රශ්නය:</strong> වට ප්‍රස්තාරයක 20% ක කොටසක් නිරූපණය කරන කේන්ද්‍රික කෝණය කීයද?
+                                <div class="ans"><strong>විසඳුම:</strong> සම්පූර්ණ කෝණය 360° වේ. $\frac{20}{100} \times 360^\circ = 72^\circ$.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -273,9 +846,7 @@
         <aside class="right-full-section">
             <div class="image-wrapper">
                 <div class="skeleton"></div>
-                
-                <img src="images/teach1.jpg" alt="Educated Young Professional Girl" 
-                     onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                <img src="images/teach1.jpg" alt="Educated Young Professional Girl" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
             </div>
         </aside>
 
