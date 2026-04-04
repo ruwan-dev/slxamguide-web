@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --text-main: #1c1d1f;
+            --text-muted: #6a6f73;
+            --border: #d1d7dc;
+            --bg-light: #f7f9fa;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif;
+            background-color: transparent;
+            color: var(--text-main);
+            padding: 10px;
+        }
+
+        .astro-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .selector-box {
+            padding: 15px;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        select {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-weight: 700;
+            color: var(--text-main);
+            background: white;
+            outline: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 200px;
+            background: #f0f2f5;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-pane {
+            padding: 20px;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        .day-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .today-tag {
+            margin-top: 15px;
+            color: #10b981;
+            font-size: 12px;
+            font-weight: 700;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="astro-card">
+    <div class="selector-box">
+        <select id="monthSelect" onchange="updateDisplay()">
+            <option value="1">ජනවාරි</option><option value="2">පෙබරවාරි</option><option value="3">මාර්තු</option>
+            <option value="4">අප්‍රේල්</option><option value="5">මැයි</option><option value="6">ජුනි</option>
+            <option value="7">ජූලි</option><option value="8">අගෝස්තු</option><option value="9">සැප්තැම්බර්</option>
+            <option value="10">ඔක්තෝබර්</option><option value="11">නොවැම්බර්</option><option value="12">දෙසැම්බර්</option>
+        </select>
+        <select id="daySelect" onchange="updateDisplay()">
+            <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option>
+            <option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option>
+            <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+            <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+            <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+            <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+    </div>
+
+    <div class="content-area">
+        <div class="image-container">
+            <img id="displayImg" src="" alt="AstroQuiz">
+        </div>
+        <div class="info-pane">
+            <h2 id="mainTitle" class="day-title">පූරණය වෙමින්...</h2>
+            <p id="mainDesc" class="day-desc"></p>
+            <div id="todayIndicator" class="today-tag">● අද දිනය</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const imgs = {
+        poya: "https://images.pexels.com/photos/2314983/pexels-photo-2314983.jpeg?auto=compress&cs=tinysrgb&w=600",
+        edu: "https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?auto=compress&cs=tinysrgb&w=600",
+        world: "https://images.pexels.com/photos/335393/pexels-photo-335393.jpeg?auto=compress&cs=tinysrgb&w=600",
+        nature: "https://images.pexels.com/photos/414102/pexels-photo-414102.jpeg?auto=compress&cs=tinysrgb&w=600",
+        celeb: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=600",
+        generic: "https://images.pexels.com/photos/442574/pexels-photo-442574.jpeg?auto=compress&cs=tinysrgb&w=600"
+    };
+
+    const dataStore = {
+        // ජනවාරි
+        "1-1": ["නව අවුරුදු උදාව / ගෝලීය පවුල් දිනය (Global Family Day)", imgs.celeb],
+        "1-2": ["ලෝක අන්තර්වර්තී දිනය / විද්‍යා ප්‍රබන්ධ දිනය", imgs.edu],
+        "1-3": ["දුරුතු පුර පසළොස්වක පොහොය දිනය (2026)", imgs.poya],
+        "1-4": ["ලෝක බ්‍රේල් දිනය (World Braille Day)", imgs.edu],
+        "1-5": ["ජාතික පක්ෂි දිනය (National Bird Day)", imgs.nature],
+        "1-6": ["ලෝක යුද අනාථයන්ගේ දිනය", imgs.world],
+        "1-8": ["පෘථිවියේ භ්‍රමණ දිනය", imgs.nature],
+        "1-10": ["ලෝක හින්දි දිනය", imgs.world],
+        "1-11": ["ජාත්‍යන්තර ස්තූති කිරීමේ දිනය", imgs.world],
+        "1-14": ["තෛපොංගල් දිනය / ලෝක තර්ක ශාස්ත්‍ර දිනය", imgs.celeb],
+        "1-15": ["ජාත්‍යන්තර තොප්පි දිනය", imgs.celeb],
+        "1-16": ["ජාත්‍යන්තර සැර කෑම දිනය", imgs.celeb],
+        "1-19": ["ලෝක ආගමික දිනය (ජනවාරි 3 වන ඉරිදා)", imgs.world],
+        "1-20": ["පෙන්ගුවින් දැනුවත් කිරීමේ දිනය", imgs.nature],
+        "1-21": ["ලෝක වැළඳගැනීමේ දිනය", imgs.world],
+        "1-23": ["අත්අකුරු දිනය", imgs.edu],
+        "1-24": ["ජාත්‍යන්තර අධ්‍යාපන දිනය", imgs.edu],
+        "1-25": ["ජාතික ඡන්දදායකයින්ගේ දිනය", imgs.world],
+        "1-26": ["ජාත්‍යන්තර රේගු දිනය", imgs.world],
+        "1-27": ["ජාත්‍යන්තර සමූලඝාතන අනුස්මරණ දිනය", imgs.world],
+        "1-28": ["දත්ත රහස්‍යතා දිනය", imgs.edu],
+        "1-29": ["ලෝක ප්‍රහේලිකා දිනය", imgs.edu],
+        "1-30": ["ලෝක ලාදුරු දිනය", imgs.world],
+        "1-31": ["ජාත්‍යන්තර සීබ්‍රා දිනය", imgs.nature],
+
+        // පෙබරවාරි
+        "2-1": ["ලෝක හිජාබ් දිනය / වෙරළාරක්ෂක දිනය", imgs.world],
+        "2-2": ["ලෝක තෙත් බිම් දිනය", imgs.nature],
+        "2-4": ["ශ්‍රී ලංකාවේ නිදහස් දිනය / ලෝක පිළිකා දිනය", imgs.celeb],
+        "2-5": ["ලෝක නූටෙල්ලා දිනය", imgs.celeb],
+        "2-6": ["කාන්තා ලිංගික අවයව විකෘති කිරීමට එරෙහි දිනය", imgs.world],
+        "2-10": ["ලෝක ධාන්‍ය දිනය", imgs.nature],
+        "2-11": ["විද්‍යාවේ නියැලෙන කාන්තා සහ ගැහැණු ළමුන්ගේ දිනය", imgs.edu],
+        "2-12": ["ඩාවින් දිනය / ජාත්‍යන්තර අපස්මාර දිනය", imgs.edu],
+        "2-13": ["ලෝක ගුවන්විදුලි දිනය", imgs.world],
+        "2-14": ["වැලන්ටයින් දිනය", imgs.celeb],
+        "2-15": ["ජාත්‍යන්තර ළමා පිළිකා දිනය / හිපපොටේමස් දිනය", imgs.world],
+        "2-17": ["ලෝක මානව හිතවාදී දිනය", imgs.world],
+        "2-20": ["ලෝක සමාජ සාධාරණත්ව දිනය", imgs.world],
+        "2-21": ["ජාත්‍යන්තර මව්භාෂා දිනය", imgs.edu],
+        "2-22": ["ලෝක චින්තන දිනය (බාලදක්ෂ/බාලදක්ෂිකා)", imgs.edu],
+        "2-24": ["මධ්‍යම සුරාබදු දිනය", imgs.world],
+        "2-27": ["ලෝක රාජ්‍ය නොවන සංවිධාන දිනය", imgs.world],
+        "2-28": ["ජාතික විද්‍යා දිනය / දුර්ලභ රෝග පිළිබඳ දිනය", imgs.edu],
+
+        // මාර්තු
+        "3-1": ["ශූන්‍ය වෙනස්කොට සැලකීමේ දිනය / සිවිල් ආරක්ෂක දිනය", imgs.world],
+        "3-3": ["මැදින් පුර පසළොස්වක පොහොය දිනය / ලෝක වනජීවී දිනය", imgs.poya],
+        "3-4": ["ජාතික ආරක්ෂක දිනය", imgs.world],
+        "3-8": ["ජාත්‍යන්තර කාන්තා දිනය", imgs.celeb],
+        "3-10": ["CISF පිහිටුවීමේ දිනය", imgs.world],
+        "3-12": ["මොරිෂස් රාජ්‍යයේ නිදහස් දිනය", imgs.world],
+        "3-14": ["පයි (Pi) දිනය / ජාත්‍යන්තර ගණිත දිනය", imgs.edu],
+        "3-15": ["ලෝක පාරිභෝගික අයිතිවාසිකම් දිනය", imgs.world],
+        "3-16": ["ජාතික එන්නත් කිරීමේ දිනය", imgs.world],
+        "3-18": ["ගෝලීය ප්‍රතිචක්‍රීකරණ දිනය", imgs.nature],
+        "3-20": ["ජාත්‍යන්තර සතුටේ දිනය / ලෝක ගේකුරුල්ලා දිනය", imgs.celeb],
+        "3-21": ["ලෝක වනාන්තර දිනය / ලෝක කාව්‍ය දිනය / ඩවුන් සින්ඩ්‍රෝම් දිනය", imgs.nature],
+        "3-22": ["ලෝක ජල දිනය", imgs.nature],
+        "3-23": ["ලෝක කාලගුණ විද්‍යා දිනය", imgs.nature],
+        "3-24": ["ලෝක ක්ෂය රෝග මර්දන දිනය", imgs.world],
+        "3-27": ["ලෝක නාට්‍ය දිනය", imgs.celeb],
+        "3-28": ["පෘථිවි හෝරාව (Earth Hour)", imgs.nature],
+
+        // අප්‍රේල්
+        "4-1": ["බක් පුර පසළොස්වක පොහොය දිනය / මෝඩයන්ගේ දිනය", imgs.poya],
+        "4-2": ["ලෝක ඕටිසම් (Autism) දැනුවත් කිරීමේ දිනය", imgs.world],
+        "4-4": ["ජාත්‍යන්තර බිම්බෝම්බ දැනුවත් කිරීමේ දිනය", imgs.world],
+        "4-5": ["ජාත්‍යන්තර හෘද සාක්ෂියේ දිනය", imgs.world],
+        "4-7": ["ලෝක සෞඛ්‍ය දිනය", imgs.world],
+        "4-10": ["සහෝදර සහෝදරියන්ගේ දිනය / හෝමියෝපති දිනය", imgs.celeb],
+        "4-11": ["ජාතික සුරතල් සතුන්ගේ දිනය", imgs.nature],
+        "4-13": ["සිංහල හා හින්දු අලුත් අවුරුදු පූර්ව දිනය", imgs.celeb],
+        "4-14": ["සිංහල හා හින්දු අලුත් අවුරුදු උදාව", imgs.celeb],
+        "4-15": ["ලෝක කලා දිනය", imgs.celeb],
+        "4-17": ["ලෝක හිමොෆීලියා දිනය", imgs.world],
+        "4-18": ["ලෝක උරුම දිනය", imgs.world],
+        "4-21": ["ලෝක නිර්මාණශීලිත්ව සහ නවෝත්පාදන දිනය", imgs.edu],
+        "4-22": ["ලෝක පෘථිවි දිනය", imgs.nature],
+        "4-23": ["ලෝක පොත් / ඉංග්‍රීසි භාෂා දිනය", imgs.edu],
+        "4-24": ["රාජ්‍ය තාන්ත්‍රික දිනය", imgs.world],
+        "4-25": ["ලෝක මැලේරියා දිනය / පශු වෛද්‍ය දිනය", imgs.world],
+        "4-26": ["ලෝක බුද්ධිමය දේපළ දිනය", imgs.edu],
+        "4-28": ["ලෝක සේවා ස්ථානයේ සුරක්ෂිතතාව පිළිබඳ දිනය", imgs.world],
+        "4-29": ["ජාත්‍යන්තර නර්තන දිනය", imgs.celeb],
+        "4-30": ["ජාත්‍යන්තර ජෑස් (Jazz) සංගීත දිනය", imgs.celeb],
+
+        // මැයි
+        "5-1": ["ජාත්‍යන්තර කම්කරු දිනය / වෙසක් පොහොය", imgs.poya],
+        "5-2": ["වෙසක් පුර පසළොස්වක පොහොය පසු දින", imgs.poya],
+        "5-3": ["ලෝක පුවත්පත් නිදහස පිළිබඳ දිනය", imgs.world],
+        "5-4": ["ජාත්‍යන්තර ගිනි නිවන භටයින්ගේ දිනය", imgs.world],
+        "5-5": ["ලෝක පෘතුගීසි භාෂා දිනය / අත් සනීපාරක්ෂක දිනය", imgs.edu],
+        "5-8": ["ලෝක රතු කුරුස සහ රතු අඩසඳ දිනය", imgs.world],
+        "5-10": ["මව්වරුන්ගේ දිනය (මැයි 2 වන ඉරිදා)", imgs.celeb],
+        "5-11": ["ජාතික තාක්ෂණික දිනය", imgs.edu],
+        "5-12": ["ජාත්‍යන්තර හෙද දිනය", imgs.world],
+        "5-15": ["ජාත්‍යන්තර පවුලේ දිනය", imgs.celeb],
+        "5-16": ["ජාත්‍යන්තර ආලෝක දිනය / එකට ජීවත්වීමේ දිනය", imgs.edu],
+        "5-17": ["ලෝක විදුලි සංදේශ සහ තොරතුරු සමාජ දිනය", imgs.world],
+        "5-20": ["ලෝක මී මැසි දිනය", imgs.nature],
+        "5-21": ["ජාත්‍යන්තර තේ දිනය / සංස්කෘතික විවිධත්වයේ දිනය", imgs.celeb],
+        "5-22": ["ජාත්‍යන්තර ජෛව විවිධත්ව දිනය", imgs.nature],
+        "5-23": ["ලෝක කැස්බෑ දිනය", imgs.nature],
+        "5-25": ["අප්‍රිකානු දිනය", imgs.world],
+        "5-29": ["ජාත්‍යන්තර සාම සාධක භටයින්ගේ දිනය", imgs.world],
+        "5-30": ["පොසොන් පුර පසළොස්වක පොහොය දිනය", imgs.poya],
+        "5-31": ["ලෝක දුම්වැටි විරෝධී දිනය", imgs.world],
+
+        // ජුනි
+        "6-1": ["ලෝක කිරි දිනය / ගෝලීය දෙමාපිය දිනය", imgs.world],
+        "6-3": ["ලෝක පාපැදි දිනය", imgs.celeb],
+        "6-4": ["අහිංසක දරුවන්ගේ ජාත්‍යන්තර දිනය", imgs.world],
+        "6-5": ["ලෝක පරිසර දිනය", imgs.nature],
+        "6-7": ["ලෝක ආහාර සුරක්ෂිතතා දිනය", imgs.world],
+        "6-8": ["ලෝක සාගර දිනය / මොළයේ ගෙඩි පිළිබඳ දිනය", imgs.nature],
+        "6-12": ["ළමා ශ්‍රමයට එරෙහි ලෝක දිනය", imgs.world],
+        "6-14": ["ලෝක රුධිර පාරවිලයනය කරන්නන්ගේ දිනය", imgs.world],
+        "6-15": ["ලෝක වැඩිහිටි අපයෝජන දැනුවත් කිරීමේ දිනය", imgs.world],
+        "6-17": ["කාන්තාරීකරණයට සහ නියඟයට එරෙහිව සටන් කිරීමේ දිනය", imgs.nature],
+        "6-18": ["තිරසාර ආහාර සංස්කෘතික දිනය", imgs.world],
+        "6-20": ["ලෝක සරණාගත දිනය", imgs.world],
+        "6-21": ["ජාත්‍යන්තර යෝග දිනය / සංගීත / පියවරුන්ගේ දිනය", imgs.celeb],
+        "6-23": ["UN රාජ්‍ය සේවා දිනය / වැන්දඹු දිනය", imgs.world],
+        "6-25": ["නාවිකයින්ගේ දිනය", imgs.world],
+        "6-26": ["මත්ද්‍රව්‍ය විරෝධී ජාත්‍යන්තර දිනය", imgs.world],
+        "6-27": ["MSME දිනය", imgs.world],
+        "6-29": ["ඇසළ පුර පසළොස්වක පොහොය දිනය / නිවර්තන දිනය", imgs.poya],
+        "6-30": ["ජාත්‍යන්තර ග්‍රහක දිනය", imgs.edu],
+
+        // ජූලි
+        "7-1": ["ජාත්‍යන්තර විහිළු දිනය / වෛද්‍යවරුන්ගේ දිනය", imgs.world],
+        "7-2": ["ලෝක UFO දිනය", imgs.edu],
+        "7-3": ["ප්ලාස්ටික් බෑග් භාවිතයෙන් තොර දිනය", imgs.nature],
+        "7-4": ["ඇමරිකා එක්සත් ජනපදයේ නිදහස් දිනය", imgs.celeb],
+        "7-6": ["ලෝක සත්ව රෝග දිනය", imgs.nature],
+        "7-7": ["ලෝක චොකලට් දිනය", imgs.celeb],
+        "7-11": ["ලෝක ජනගහන දිනය", imgs.world],
+        "7-12": ["මලාලා දිනය / කඩදාසි බෑග් දිනය", imgs.edu],
+        "7-15": ["ලෝක තරුණ නිපුණතා දිනය", imgs.edu],
+        "7-17": ["ලෝක ඉමෝජි (Emoji) දිනය", imgs.celeb],
+        "7-18": ["නෙල්සන් මැන්ඩෙලා ජාත්‍යන්තර දිනය", imgs.world],
+        "7-20": ["ලෝක චෙස් දිනය / සඳට ගොඩබැසීමේ දිනය", imgs.edu],
+        "7-24": ["ආදායම් බදු දිනය", imgs.world],
+        "7-26": ["මාලදිවයිනේ නිදහස් දිනය / කඩොලාන සංරක්ෂණ දිනය", imgs.nature],
+        "7-28": ["නිකිණි පුර පසළොස්වක පොහොය දිනය / හෙපටයිටිස් දිනය", imgs.poya],
+        "7-29": ["ජාත්‍යන්තර ව්‍යාඝ්‍ර දිනය", imgs.nature],
+        "7-30": ["ජාත්‍යන්තර මිත්‍රත්ව දිනය / මිනිස් ජාවාරමට එරෙහි දිනය", imgs.celeb],
+
+        // අගෝස්තු
+        "8-1": ["ලෝක මව්කිරි දීමේ සතිය ආරම්භය", imgs.world],
+        "8-6": ["හිරෝෂිමා දිනය (Hiroshima Day)", imgs.world],
+        "8-7": ["ජාත්‍යන්තර මිත්‍රත්ව දිනය (අගෝස්තු 1 ඉරිදා)", imgs.celeb],
+        "8-9": ["නාගසාකි දිනය / දේශීය ජනතාවගේ දිනය", imgs.world],
+        "8-12": ["ජාත්‍යන්තර තරුණ දිනය / ලෝක අලි දිනය", imgs.nature],
+        "8-13": ["ලෝක වම් අත හුරු අයගේ දිනය", imgs.world],
+        "8-15": ["ඉන්දියාවේ නිදහස් දිනය", imgs.celeb],
+        "8-19": ["ලෝක ඡායාරූප ශිල්පී දිනය / මානුෂීය දිනය", imgs.world],
+        "8-20": ["ලෝක මදුරු දිනය", imgs.nature],
+        "8-21": ["ලෝක ජ්‍යෙෂ්ඨ පුරවැසි දිනය", imgs.world],
+        "8-23": ["වහල් වෙළඳාම අනුස්මරණ කිරීමේ දිනය", imgs.world],
+        "8-26": ["කාන්තා සමානාත්මතා දිනය / සුනඛ දිනය", imgs.world],
+        "8-27": ["බිනර පුර පසළොස්වක පොහොය දිනය", imgs.poya],
+        "8-29": ["න්‍යෂ්ටික පරීක්ෂණවලට එරෙහි දිනය / ක්‍රීඩා දිනය", imgs.world],
+        "8-30": ["අතුරුදහන් කරවූවන්ගේ දිනය", imgs.world],
+        "8-31": ["අප්‍රිකානු සම්භවයක් සහිත පුද්ගලයින්ගේ දිනය", imgs.world],
+
+        // සැප්තැම්බර්
+        "9-2": ["ලෝක පොල් දිනය (World Coconut Day)", imgs.nature],
+        "9-5": ["ජාත්‍යන්තර පුණ්‍ය කටයුතු පිළිබඳ දිනය", imgs.world],
+        "9-7": ["නිල් අහස සඳහා පිරිසිදු වාතය පිළිබඳ දිනය", imgs.nature],
+        "9-8": ["ජාත්‍යන්තර සාක්ෂරතා දිනය", imgs.edu],
+        "9-10": ["ලෝක සියදිවි නසාගැනීම් වැළැක්වීමේ දිනය", imgs.world],
+        "9-12": ["දකුණු-දකුණු සහයෝගීතාව සඳහා වූ දිනය", imgs.world],
+        "9-15": ["ජාත්‍යන්තර ප්‍රජාතන්ත්‍රවාදී දිනය / ඉංජිනේරු දිනය", imgs.edu],
+        "9-16": ["ලෝක ඕසෝන් දිනය (World Ozone Day)", imgs.nature],
+        "9-17": ["ලෝක රෝගී සුරක්ෂිතතා දිනය", imgs.world],
+        "9-18": ["ලෝක උණ බම්බු දිනය", imgs.nature],
+        "9-21": ["ජාත්‍යන්තර සාම දිනය / ඇල්සයිමර් දිනය", imgs.world],
+        "9-22": ["ලෝක රයිනෝසිරස් දිනය / මෝටර් රථවලින් තොර දිනය", imgs.nature],
+        "9-23": ["ජාත්‍යන්තර සංඥා භාෂා දිනය", imgs.edu],
+        "9-25": ["ලෝක ඖෂධවේදීන්ගේ දිනය", imgs.world],
+        "9-26": ["වප් පුර පසළොස්වක පොහොය දිනය / න්‍යෂ්ටික අවි තුරන් කිරීමේ දිනය", imgs.poya],
+        "9-27": ["ලෝක සංචාරක දිනය", imgs.celeb],
+        "9-28": ["ලෝක ජලභීතිකා රෝග මර්දන දිනය", imgs.world],
+        "9-29": ["ලෝක හෘද දිනය", imgs.world],
+        "9-30": ["ජාත්‍යන්තර පරිවර්තන දිනය", imgs.edu],
+
+        // ඔක්තෝබර්
+        "10-1": ["ළමා දිනය (SL) / වැඩිහිටි දිනය / නිර්මාංශ දිනය", imgs.world],
+        "10-2": ["ජාත්‍යන්තර අහිංසාවාදී දිනය (ගාන්ධි ජන්ම දිනය)", imgs.world],
+        "10-4": ["ලෝක සත්ව දිනය", imgs.nature],
+        "10-5": ["ලෝක ගුරු දිනය (World Teachers' Day)", imgs.edu],
+        "10-6": ["ශ්‍රී ලංකාවේ ගුරු දිනය", imgs.edu],
+        "10-7": ["ලෝක කපු දිනය", imgs.world],
+        "10-9": ["ලෝක තැපැල් දිනය", imgs.world],
+        "10-10": ["ලෝක මානසික සෞඛ්‍ය දිනය / මරණ දඬුවමට එරෙහි දිනය", imgs.world],
+        "10-11": ["ජාත්‍යන්තර ගැහැණු ළමුන්ගේ දිනය", imgs.world],
+        "10-12": ["ලෝක ආතරයිටිස් දිනය", imgs.world],
+        "10-13": ["ස්වභාවික විපත් අවම කිරීමේ දිනය", imgs.nature],
+        "10-14": ["ලෝක ප්‍රමිති දිනය", imgs.edu],
+        "10-15": ["ලෝක සුදු සැරයටි දිනය / අත් සේදීමේ දිනය / ග්‍රාමීය කාන්තාවන්ගේ දිනය", imgs.world],
+        "10-16": ["ලෝක ආහාර දිනය", imgs.world],
+        "10-17": ["දරිද්‍රතාවය තුරන් කිරීමේ දිනය", imgs.world],
+        "10-20": ["ලෝක ඔස්ටියෝපොරෝසිස් දිනය / සංඛ්‍යාලේඛන දිනය", imgs.edu],
+        "10-24": ["UN දිනය / සංවර්ධන තොරතුරු / පෝලියෝ දිනය", imgs.world],
+        "10-25": ["ඉල් පුර පසළොස්වක පොහොය දිනය (2026)", imgs.poya],
+        "10-27": ["ශ්‍රව්‍ය දෘශ්‍ය උරුමය සඳහා වූ දිනය", imgs.edu],
+        "10-31": ["ලෝක නගර දිනය / හැලොවීන්", imgs.celeb],
+
+        // නොවැම්බර්
+        "11-1": ["ලෝක නිර්මාංශ (Vegan) දිනය", imgs.nature],
+        "11-5": ["ලෝක සුනාමි දැනුවත් කිරීමේ දිනය", imgs.nature],
+        "11-7": ["ළදරු ආරක්ෂණ දිනය", imgs.world],
+        "11-9": ["ලෝක නීති සේවා දිනය", imgs.world],
+        "11-10": ["සාමය සහ සංවර්ධනය සඳහා වූ විද්‍යා දිනය", imgs.edu],
+        "11-11": ["සටන් විරාම දිනය / මතක සැමරුම් දිනය", imgs.world],
+        "11-12": ["ලෝක නියුමෝනියා දිනය", imgs.world],
+        "11-14": ["ලෝක දියවැඩියා දිනය", imgs.world],
+        "11-16": ["ජාත්‍යන්තර සහනශීලිත්ව දිනය", imgs.world],
+        "11-17": ["ජාත්‍යන්තර ශිෂ්‍ය දිනය", imgs.edu],
+        "11-19": ["පිරිමි දිනය / වැසිකිළි දිනය / දර්ශනවාදී දිනය", imgs.world],
+        "11-20": ["විශ්ව ළමා දිනය (UN)", imgs.world],
+        "11-21": ["ලෝක රූපවාහිනී දිනය / ධීවර දිනය", imgs.world],
+        "11-23": ["උඳුවප් පුර පසළොස්වක පොහොය දිනය (2026)", imgs.poya],
+        "11-25": ["කාන්තාවන්ට එරෙහි ප්‍රචණ්ඩත්වය තුරන් කිරීමේ දිනය", imgs.world],
+        "11-26": ["ලෝක තිරසාර ප්‍රවාහන දිනය", imgs.nature],
+        "11-29": ["පලස්තීන ජනතාව සමඟ සහයෝගිතාව දැක්වීමේ දිනය", imgs.world],
+        "11-30": ["රසායනික යුද්ධයේ ගොදුරු වූවන් සිහිපත් කිරීමේ දිනය", imgs.world],
+
+        // දෙසැම්බර්
+        "12-1": ["ලෝක ඒඩ්ස් (AIDS) දිනය", imgs.world],
+        "12-2": ["වහල්භාවය තුරන් කිරීමේ දිනය / පරිගණක සාක්ෂරතා දිනය", imgs.edu],
+        "12-3": ["ජාත්‍යන්තර ආබාධිත පුද්ගල දිනය", imgs.world],
+        "12-4": ["ජාත්‍යන්තර බැංකු දිනය / නාවික හමුදා දිනය", imgs.world],
+        "12-5": ["ලෝක පස් දිනය / ස්වේච්ඡා සේවක දිනය", imgs.nature],
+        "12-7": ["ජාත්‍යන්තර සිවිල් ගුවන් සේවා දිනය", imgs.world],
+        "12-9": ["ජාත්‍යන්තර දූෂණ විරෝධී දිනය", imgs.world],
+        "12-10": ["මානව හිමිකම් දිනය", imgs.world],
+        "12-11": ["ජාත්‍යන්තර කඳුකර දිනය / යුනිසෙෆ් දිනය", imgs.nature],
+        "12-12": ["ජාත්‍යන්තර විශ්ව සෞඛ්‍ය ආවරණ දිනය", imgs.world],
+        "12-18": ["සංක්‍රමණිකයන්ගේ දිනය / අරාබි භාෂා දිනය", imgs.world],
+        "12-20": ["ජාත්‍යන්තර මානුෂීය සහයෝගිතා දිනය", imgs.world],
+        "12-23": ["දුරුතු පුර පසළොස්වක පොහොය දිනය (2026)", imgs.poya],
+        "12-25": ["නත්තල් දිනය", imgs.celeb],
+        "12-27": ["වසංගත සූදානම පිළිබඳ ජාත්‍යන්තර දිනය", imgs.world],
+        "12-31": ["නව අවුරුදු සැඳෑව (New Year's Eve)", imgs.celeb]
+    };
+
+    function updateDisplay() {
+        const m = document.getElementById('monthSelect').value;
+        const d = document.getElementById('daySelect').value;
+        const key = m + "-" + d;
+        
+        const today = new Date();
+        const isToday = ((today.getMonth() + 1) == m && today.getDate() == d);
+        
+        document.getElementById('todayIndicator').style.display = isToday ? 'block' : 'none';
+
+        const data = dataStore[key];
+        if (data) {
+            const parts = data[0].split('/');
+            document.getElementById('mainTitle').innerText = parts[0].trim();
+            document.getElementById('mainDesc').innerText = parts[1] ? parts[1].trim() : "මෙම දිනය ශ්‍රී ලංකාවට සහ ලෝකයට වැදගත් සුවිශේෂී දිනයකි.";
+            document.getElementById('displayImg').src = data[1];
+        } else {
+            document.getElementById('mainTitle').innerText = "සාමාන්‍ය දිනයක්";
+            document.getElementById('mainDesc').innerText = "විශේෂිත ගෝලීය සැමරුමක් වාර්තා වී නැත. විභාග සඳහා සූදානම් වීමට මෙය කදිම දිනයකි.";
+            document.getElementById('displayImg').src = imgs.generic;
+        }
+    }
+
+    window.onload = function() {
+        const now = new Date();
+        document.getElementById('monthSelect').value = now.getMonth() + 1;
+        document.getElementById('daySelect').value = now.getDate();
+        updateDisplay();
+    };
+</script>
+
+</body>
+</html>
