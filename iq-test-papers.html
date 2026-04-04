@@ -48,16 +48,36 @@
             display: flex; 
             flex-direction: column; 
             justify-content: center;
+            position: relative;
+        }
+
+        /* Home Link Styling */
+        .home-link {
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .home-link:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
         }
 
         .image-sec {
             flex: 1; 
             background: #e0f2fe; 
             position: relative;
-            overflow: hidden; /* Important for skeleton bounds */
+            overflow: hidden;
         }
 
-        /* Image styling with fade-in transition */
         .image-sec img {
             width: 100%; 
             height: 100%; 
@@ -65,12 +85,11 @@
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 0.6s ease-in-out; /* Smooth fade in */
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
             z-index: 2;
         }
 
-        /* Skeleton Loader Animation */
         .skeleton {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -89,14 +108,15 @@
         .brand-tag {
             font-weight: 800; 
             color: var(--primary); 
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
             letter-spacing: 1px; 
             text-transform: uppercase; 
             font-size: 0.85rem;
+            margin-top: 20px; /* Space for home link */
         }
 
         h1 { 
-            font-size: 2.5rem; /* Slightly reduced to fit longer text */
+            font-size: 2.5rem; 
             font-weight: 800; 
             margin: 0 0 20px 0; 
             line-height: 1.1; 
@@ -141,11 +161,11 @@
             font-weight: 600; 
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .wrapper { flex-direction: column; margin: 20px 0; }
+            .home-link { top: 20px; left: 30px; }
             .image-sec { height: 250px; }
-            .content-sec { padding: 40px 30px; text-align: center; align-items: center; }
+            .content-sec { padding: 60px 30px 40px; text-align: center; align-items: center; }
             .start-btn { align-self: center; width: 100%; }
             h1 { font-size: 2rem; }
             .footer { margin-top: 30px; }
@@ -155,6 +175,8 @@
 <body>
     <div class="wrapper">
         <div class="content-sec">
+            <a href="index.html" class="home-link">← Home</a>
+
             <div class="brand-tag">AstroQuiz Academy</div>
             <h1>IQ Past Papers &<br><span>Model Papers</span></h1>
             <p>රජයේ විභාග සඳහා වන බුද්ධි පරීක්ෂණ පසුගිය විභාග ප්‍රශ්න පත්‍ර (Past Papers) සහ අනුමාන ප්‍රශ්න පත්‍ර (Model Papers) පිළිතුරු සමඟින් පුහුණු වන්න.</p>
