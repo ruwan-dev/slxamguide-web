@@ -64,15 +64,39 @@
         .cat-tag { font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
         h1 { font-size: 2rem; font-weight: 800; margin: 10px 0 20px; line-height: 1.2; }
 
+        /* Topic Banner Skeleton Wrapper */
+        .banner-wrapper {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            background-color: #f0f2f5;
+        }
+
+        .banner-skeleton {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #f6f7f8;
+            background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+            background-repeat: no-repeat;
+            background-size: 800px 100%;
+            animation: shimmer 1.5s infinite linear;
+            z-index: 1;
+        }
+
         /* Topic Specific Image Style */
         .topic-banner {
             width: 100%;
-            height: 250px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            background-color: #f0f2f5;
-            border: 1px solid var(--border);
+            opacity: 0; /* Hidden initially */
+            transition: opacity 0.5s ease;
+            position: relative;
+            z-index: 2;
+            display: block;
         }
 
         .method-card { background: #f7f9fa; border: 1px solid var(--border); padding: 25px; border-radius: var(--radius); margin: 20px 0; }
@@ -137,7 +161,7 @@
             .main-wrapper { flex-direction: column; overflow-y: auto; }
             .sidebar { width: 100%; height: auto; max-height: 250px; border-right: none; border-bottom: 1px solid var(--border); }
             .content-area { padding: 20px; }
-            .topic-banner { height: 150px; }
+            .banner-wrapper { height: 150px; }
         }
     </style>
 </head>
@@ -190,7 +214,10 @@
                 <div id="n1" class="pane active">
                     <span class="cat-tag">Numerical Ability</span>
                     <h1>වේගය, කාලය සහ දුර</h1>
-                    <img src="images/short/speed.png" class="topic-banner" alt="Speed Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/speed.png" class="topic-banner" alt="Speed Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -239,7 +266,10 @@
                 <div id="n2" class="pane">
                     <span class="cat-tag">Numerical Ability</span>
                     <h1>වයස පිළිබඳ ගැටලු</h1>
-                    <img src="images/short/kalaya.png" class="topic-banner" alt="Age Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/kalaya.png" class="topic-banner" alt="Age Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -285,7 +315,10 @@
                 <div id="n3" class="pane">
                     <span class="cat-tag">Numerical Ability</span>
                     <h1>සංඛ්‍යා රටා (Series)</h1>
-                    <img src="images/short/sankya.png" class="topic-banner" alt="Number Series Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/sankya.png" class="topic-banner" alt="Number Series Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -331,7 +364,10 @@
                 <div id="n4" class="pane">
                     <span class="cat-tag">Numerical Ability</span>
                     <h1>වෙනි රූප (Venn Diagrams)</h1>
-                    <img src="images/short/wen rupa.png" class="topic-banner" alt="Venn Diagram Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/wen rupa.png" class="topic-banner" alt="Venn Diagram Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -377,7 +413,10 @@
                 <div id="v1" class="pane">
                     <span class="cat-tag">Verbal Ability</span>
                     <h1>අනන්‍යතාවය (Analogies)</h1>
-                    <img src="images/short/ananya.png" class="topic-banner" alt="Analogies Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/ananya.png" class="topic-banner" alt="Analogies Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -423,7 +462,10 @@
                 <div id="v2" class="pane">
                     <span class="cat-tag">Verbal Ability</span>
                     <h1>අසමාන වචනය සෙවීම</h1>
-                    <img src="images/short/nogalapena.png" class="topic-banner" alt="Odd One Out Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/nogalapena.png" class="topic-banner" alt="Odd One Out Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -469,7 +511,10 @@
                 <div id="l1" class="pane">
                     <span class="cat-tag">Logical Reasoning</span>
                     <h1>දිශාවන් පිළිබඳ ගැටලු</h1>
-                    <img src="images/short/disha.png" class="topic-banner" alt="Directions Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/disha.png" class="topic-banner" alt="Directions Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -515,7 +560,10 @@
                 <div id="l2" class="pane">
                     <span class="cat-tag">Logical Reasoning</span>
                     <h1>ලේ නෑකම් (Blood Relations)</h1>
-                    <img src="images/short/family.png" class="topic-banner" alt="Blood Relations Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/family.png" class="topic-banner" alt="Blood Relations Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -561,7 +609,10 @@
                 <div id="l3" class="pane">
                     <span class="cat-tag">Logical Reasoning</span>
                     <h1>අසුන් පැනවීම (Seating Arrangements)</h1>
-                    <img src="images/short/sheets.png" class="topic-banner" alt="Seating Arrangements Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/sheets.png" class="topic-banner" alt="Seating Arrangements Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -607,7 +658,10 @@
                 <div id="s1" class="pane">
                     <span class="cat-tag">Spatial Reasoning</span>
                     <h1>දාදු කැට (Dice)</h1>
-                    <img src="images/short/dadu.png" class="topic-banner" alt="Dice Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/dadu.png" class="topic-banner" alt="Dice Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -653,7 +707,10 @@
                 <div id="s2" class="pane">
                     <span class="cat-tag">Spatial Reasoning</span>
                     <h1>කැඩපත් ප්‍රතිබිම්බ (Mirror Images)</h1>
-                    <img src="images/short/mirror.png" class="topic-banner" alt="Mirror Image Concept">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/mirror.png" class="topic-banner" alt="Mirror Image Concept" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -699,7 +756,10 @@
                 <div id="s3" class="pane">
                     <span class="cat-tag">Spatial Reasoning</span>
                     <h1>කඩදාසි නැවීම් (Paper Folding)</h1>
-                    <img src="images/short/paper.png" class="topic-banner" alt="Paper Folding Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/paper.png" class="topic-banner" alt="Paper Folding Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -745,7 +805,10 @@
                 <div id="g1" class="pane">
                     <span class="cat-tag">Data & General Intelligence</span>
                     <h1>දින දර්ශනය (Calendar)</h1>
-                    <img src="images/short/calender.png" class="topic-banner" alt="Calendar Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="images/short/calender.png" class="topic-banner" alt="Calendar Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
@@ -791,7 +854,10 @@
                 <div id="g2" class="pane">
                     <span class="cat-tag">Data & General Intelligence</span>
                     <h1>ප්‍රස්තාර සහ වගු (Data Interpretation)</h1>
-                    <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Data Interpretation Concept Image">
+                    <div class="banner-wrapper">
+                        <div class="banner-skeleton"></div>
+                        <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800" class="topic-banner" alt="Data Interpretation Concept Image" onload="this.previousElementSibling.style.display='none'; this.style.opacity='1';">
+                    </div>
 
                     <div class="logic-card">
                         <h3>විස්තරාත්මක පැහැදිලි කිරීම:</h3>
